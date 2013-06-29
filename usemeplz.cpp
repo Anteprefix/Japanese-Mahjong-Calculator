@@ -20,8 +20,11 @@ int main()
     string tileStringPairSix;
     string tileStringPairSeven;
     string tileStringPinzu = "P";
+    string tileStringPinzuLower = "p";
     string tileStringSouzu = "B";
+    string tileStringSouzuLower = "b";
     string tileStringManzu = "M";
+    string tileStringManzuLower = "m";
     string tileStringZero = "0";
     string tileStringOne = "1";
     string tileStringTwo = "2";
@@ -33,12 +36,19 @@ int main()
     string tileStringEight = "8";
     string tileStringNine = "9";
     string tileStringEast = "E";
+    string tileStringEastLower = "e";
     string tileStringSouth = "S";
+    string tileStringSouthLower = "s";
     string tileStringWest = "W";
+    string tileStringWestLower = "w";
     string tileStringNorth = "N";
+    string tileStringNorthLower = "n";
     string tileStringGreen = "G";
+    string tileStringGreenLower = "g";
     string tileStringRed = "R";
+    string tileStringRedLower = "r";
     string tileStringWhite = "H";
+    string tileStringWhiteLower = "h";
     string lengthStringFour = "0123";
     string lengthStringFive = "01234";
 
@@ -176,7 +186,7 @@ int main()
             }
 
         }
-        if (machi == 2)
+        if (machi == 2 && closed)
         {
             cout << "Was the winning hand Kokushi Musou? (1/0)\n";
             cin >> kokushi;
