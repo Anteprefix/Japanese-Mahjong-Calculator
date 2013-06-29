@@ -1,4 +1,3 @@
-
 #include <iostream>
 #include <string.h>
 #include<math.h>
@@ -1268,9 +1267,9 @@ int main()
             cout << "Daisuushi:                        Double Yakuman\n";
         }
 
-        if (tsuuiisou)
+        if (tsuuiisou && !daichisei)
         {
-            cout << "Tsuuisou:                         Yakuman\n";
+            cout << "Tsuuiisou:                         Yakuman\n";
         }
 
         if (daichisei)
