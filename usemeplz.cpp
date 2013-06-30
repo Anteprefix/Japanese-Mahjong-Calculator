@@ -257,7 +257,7 @@ int main()
         doubleRiichi = 0;
         ippatsu = 0;
     }
-    if (!chitoitsu && tsumo)
+    if (!chitoitsu && !kokushi && tsumo)
     {
         cout << "Did the winner declare kan, then win on the extra draw?\n";
         cin >> rinshan;
@@ -1233,9 +1233,9 @@ int main()
         }
     }
 
-    cout << "\n";
     if (yakumanCounter > 0)
     {
+        cout << "\n";
         if (suuankou)
         {
             if (suuankouTanki)
@@ -1407,6 +1407,10 @@ int main()
 
     if (yakumanCounter == 0)
     {
+        if (han > 0)
+        {
+            cout << "\n";
+        }
         if (riichi)
         {
             if (doubleRiichi)
@@ -1685,7 +1689,7 @@ int main()
             }
             if (!dealer)
             {
-                cout << "2000/4000";
+                cout << "2000/4000\n";
             }
 
         }
