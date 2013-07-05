@@ -166,7 +166,7 @@ int main()
     {
         inputValid = 1;
         cin >> machi;
-        if (machi.length() != lengthStringOne.length() || ((machi [0] != tileStringZero [0]) || (machi [0] != tileStringOne [0]) || (machi [0] != tileStringTwo [0]) || (machi [0] != tileStringThree [0])))
+        if (machi.length() != lengthStringOne.length() || ((machi [0] != tileStringZero [0]) && (machi [0] != tileStringOne [0]) && (machi [0] != tileStringTwo [0]) && (machi [0] != tileStringThree [0])))
         {
             inputValid = 0;
             cout << invalidInput;
