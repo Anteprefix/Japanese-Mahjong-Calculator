@@ -59,7 +59,7 @@ int main()
     //initiate binary true false variables and counter variables
     string roundWind;
     string personalWind;
-    int inputInvalid = 0;
+    int inputValid = 0;
     int setPlace = 0;
     int setOneValid = 0;
     int setOneLengthValid = 0;
@@ -162,17 +162,18 @@ int main()
 
     //ask for input
     cout << "Was the winning wait Ryanmen/Shanpon (0), Penchan/Kanchan (1), Tanki (2), or 9+ Sided Wait (3)?\n";
-    while (inputInvalid == 0)
+    while (inputValid == 0)
     {
+        inputValid = 1;
         cin >> machi;
         if (machi.length() != lengthStringOne.length() || ((machi [0] != tileStringZero [0]) || (machi [0] != tileStringOne [0]) || (machi [0] != tileStringTwo [0]) || (machi [0] != tileStringThree [0])))
         {
-            inputInvalid = 1;
+            inputValid = 0;
             cout << invalidInput;
         }
     }
 
-    cout << "Was the hand fully closed?(1/0)\n";
+    cout << "Was the hand fully closed? (1/0)\n";
     cin >> closed;
     cout << "Did the player tsumo? (1/0)\n";
     cin >> tsumo;
@@ -234,8 +235,7 @@ int main()
                 cin >> tileStringFirst;
                 if (tileStringFirst.length() < 3)
                 {
-                    cout << invalidMeld;                                // Melds MUST be comprised of at least three tiles
-                    setOneLengthError = 1;
+                    setOneLengthError = 1;                          // Melds MUST be comprised of at least three tiles
                 }
                 if (tileStringFirst.length() == 3 && ((tileStringFirst [0] != tileStringEast [0]) || (tileStringFirst [0] != tileStringSouth [0]) || (tileStringFirst [0] != tileStringWest [0]) || (tileStringFirst [0] != tileStringNorth[0]) || (tileStringFirst [0] != tileStringRed [0]) || (tileStringFirst [0] != tileStringGreen [0]) || (tileStringFirst [0] != tileStringWhite [0])))
                 {
