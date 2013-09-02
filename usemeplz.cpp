@@ -1053,11 +1053,13 @@ int main()
             chanta = 0;
         }
 
-        if (!chitoitsu && (tileStringFirst [1] == tileStringFirst [0] || tileStringFirst [1] == tileStringNine [0] || (tileStringFirst [1] == tileStringSeven [0] && tileStringFirst [2] != tileStringFirst [1])) && (tileStringSecond [1] == tileStringSecond [0] || tileStringSecond [1] == tileStringNine [0] || (tileStringSecond [1] == tileStringSeven [0] && tileStringSecond [2] != tileStringSecond [1])) && (tileStringThird [1] == tileStringThird [0] || tileStringThird [1] == tileStringNine [0] || (tileStringThird [1] == tileStringSeven [0] && tileStringThird [2] != tileStringThird [1])) && (tileStringFourth [1] == tileStringFourth [0] || tileStringFourth [1] == tileStringNine [0] || (tileStringFourth [1] == tileStringSeven [0] && tileStringFourth [2] != tileStringFourth [1])))
+        if (!chitoitsu && !honroutou && (tileStringFirst [1] == tileStringFirst [0] || tileStringFirst [1] == tileStringNine [0] || (tileStringFirst [1] == tileStringSeven [0] && tileStringFirst [2] != tileStringFirst [1])) && (tileStringSecond [1] == tileStringSecond [0] || tileStringSecond [1] == tileStringNine [0] || (tileStringSecond [1] == tileStringSeven [0] && tileStringSecond [2] != tileStringSecond [1])) && (tileStringThird [1] == tileStringThird [0] || tileStringThird [1] == tileStringNine [0] || (tileStringThird [1] == tileStringSeven [0] && tileStringThird [2] != tileStringThird [1])) && (tileStringFourth [1] == tileStringFourth [0] || tileStringFourth [1] == tileStringNine [0] || (tileStringFourth [1] == tileStringSeven [0] && tileStringFourth [2] != tileStringFourth [1])))
         {
             junchanta = 1;
             chanta = 0;
         }
+
+        han = han + yakuhaiTon + yakuhaiNan + yakuhaiSha + yakuhaiPei;
 
         if (chanta)
         {
@@ -1337,6 +1339,8 @@ int main()
                             setFourFu = setFourFu * 4;
                         }
                     }
+                    fu = fu + setOneFu + setTwoFu + setThreeFu + setFourFu;
+
                     fuFloat = fu;
 
                     fu = 10 * ceil(fuFloat / 10);
@@ -1734,6 +1738,46 @@ int main()
         if (tanyao)
         {
             cout << "Tanyao:                           1 Han\n";
+        }
+
+        if (yakuhaiTon == 1)
+        {
+            cout << "Ton:                              1 Han\n";
+        }
+
+        if (yakuhaiTon == 2)
+        {
+            cout << "Double Ton:                       2 Han\n";
+        }
+
+        if (yakuhaiNan == 1)
+        {
+            cout << "Nan:                              1 Han\n";
+        }
+
+        if (yakuhaiNan == 2)
+        {
+            cout << "Double Nan:                       2 Han\n";
+        }
+
+        if (yakuhaiSha == 1)
+        {
+            cout << "Sha:                              1 Han\n";
+        }
+
+        if (yakuhaiSha == 2)
+        {
+            cout << "Double Sha:                       2 Han\n";
+        }
+
+        if (yakuhaiPei == 1)
+        {
+            cout << "Pei:                              1 Han\n";
+        }
+
+        if (yakuhaiPei == 2)
+        {
+            cout << "Double Pei:                       2 Han\n";
         }
 
         if (yakuhaiHatsu)
