@@ -59,25 +59,22 @@ int main()
     //initiate binary true false variables and counter variables
     string roundWind;
     string personalWind;
+    int breakNow = 0;
     int inputValid = 0;
     int setPlace = 0;
     int setOneValid = 0;
-    int setOneLengthValid = 0;
     int setOneLengthError = 0;
     int setOneError = 0;
     int setOneClosed = 0;
     int setTwoValid = 0;
-    int setTwoLengthValid = 0;
     int setTwoLengthError = 0;
     int setTwoError = 0;
     int setTwoClosed = 0;
     int setThreeValid = 0;
-    int setThreeLengthValid = 0;
     int setThreeLengthError = 0;
     int setThreeError = 0;
     int setThreeClosed = 0;
     int setFourValid = 0;
-    int setFourLengthValid = 0;
     int setFourLengthError = 0;
     int setFourError = 0;
     int setFourClosed = 0;
@@ -231,17 +228,18 @@ int main()
             cout << "What was the first meld?\n";
             while (!setOneValid)
             {
+                setOneError = 0;
                 setOneLengthError = 0;
                 cin >> tileStringFirst;
                 if (tileStringFirst.length() < 3)
                 {
                     setOneLengthError = 1;                          // Melds MUST be comprised of at least three tiles
                 }
-                if (tileStringFirst.length() == 3 && ((tileStringFirst [0] != tileStringEast [0]) || (tileStringFirst [0] != tileStringSouth [0]) || (tileStringFirst [0] != tileStringWest [0]) || (tileStringFirst [0] != tileStringNorth[0]) || (tileStringFirst [0] != tileStringRed [0]) || (tileStringFirst [0] != tileStringGreen [0]) || (tileStringFirst [0] != tileStringWhite [0])))
+                if (tileStringFirst.length() == 3 && ((tileStringFirst [0] != tileStringEast [0]) && (tileStringFirst [0] != tileStringSouth [0]) && (tileStringFirst [0] != tileStringWest [0]) && (tileStringFirst [0] != tileStringNorth[0]) && (tileStringFirst [0] != tileStringRed [0]) && (tileStringFirst [0] != tileStringGreen [0]) && (tileStringFirst [0] != tileStringWhite [0])))
                 {
                     setOneLengthError = 1;                          // If the string length is exactly 3, the meld must be a pon of honors; if it were anything else the string length would be 4 since suit must be stated
                 }
-                if (tileStringFirst.length() > 4 && ((tileStringFirst [0] != tileStringManzu [0]) || (tileStringFirst [0] != tileStringPinzu [0]) || (tileStringFirst [0] == tileStringSouzu [0])))
+                if (tileStringFirst.length() > 4 && ((tileStringFirst [0] != tileStringManzu [0]) && (tileStringFirst [0] != tileStringPinzu [0]) && (tileStringFirst [0] == tileStringSouzu [0])))
                 {
                     setOneLengthError = 1;                          // Any strings with length 5 indicate kans of normal tiles; there are only four of each tile, so having five of an honor tile is impossible
                 }
@@ -254,37 +252,179 @@ int main()
                     cout << invalidMeld;
                     continue;                                       // If the meld does not satisfy the above conditions, the loop is reset and the user prompted to retry
                 }
-                setOneLengthValid = 1;
                 while (!setOneValid)
                 {
-                    setOneError = 0;
-                    for (setPlace = 0; ((tileStringFirst [setPlace] != tileStringEast [0]) || (tileStringFirst [setPlace] != tileStringSouth [0]) || (tileStringFirst [setPlace] != tileStringWest [0]) || (tileStringFirst [setPlace] != tileStringNorth [0]) || (tileStringFirst [setPlace] != tileStringRed [0]) || (tileStringFirst [setPlace] != tileStringWhite [0]) || (tileStringFirst [setPlace] != tileStringGreen [0]) || (tileStringFirst [setPlace] != tileStringManzu [0]) || (tileStringFirst [setPlace] != tileStringPinzu [0]) || (tileStringFirst [setPlace] != tileStringSouzu [0]) || (tileStringFirst [setPlace] != tileStringOne [0]) || (tileStringFirst [setPlace] != tileStringTwo [0]) || (tileStringFirst [setPlace] != tileStringThree [0]) || (tileStringFirst [setPlace] != tileStringFour [0]) || (tileStringFirst [setPlace] != tileStringFive [0]) || (tileStringFirst [setPlace] != tileStringSix [0]) || (tileStringFirst [setPlace] != tileStringSeven [0]) || (tileStringFirst [setPlace] != tileStringEight [0]) || (tileStringFirst [setPlace] != tileStringNine [0])); setPlace++)
-                    {
-                        setOneError == 1;
-                        cout << invalidMeld;
-                        break;
-                    }
                     if (setOneError == 1)
                     {
                         break;
                     }
-                    setOneValid == 1;
+                    setPlace = 0;
+                    while (setPlace < tileStringFirst.length())
+                    {
+                        if ((tileStringFirst [setPlace] != tileStringEast [0]) && (tileStringFirst [setPlace] != tileStringSouth [0]) && (tileStringFirst [setPlace] != tileStringWest [0]) && (tileStringFirst [setPlace] != tileStringNorth [0]) && (tileStringFirst [setPlace] != tileStringRed [0]) && (tileStringFirst [setPlace] != tileStringWhite [0]) && (tileStringFirst [setPlace] != tileStringGreen [0]) && (tileStringFirst [setPlace] != tileStringManzu [0]) && (tileStringFirst [setPlace] != tileStringPinzu [0]) && (tileStringFirst [setPlace] != tileStringSouzu [0]) && (tileStringFirst [setPlace] != tileStringOne [0]) && (tileStringFirst [setPlace] != tileStringTwo [0]) && (tileStringFirst [setPlace] != tileStringThree [0]) && (tileStringFirst [setPlace] != tileStringFour [0]) && (tileStringFirst [setPlace] != tileStringFive [0]) && (tileStringFirst [setPlace] != tileStringSix [0]) && (tileStringFirst [setPlace] != tileStringSeven [0]) && (tileStringFirst [setPlace] != tileStringEight [0]) && (tileStringFirst [setPlace] != tileStringNine [0]))
+                        {
+                            setOneError = 1;
+                            cout << invalidMeld;
+                            break;
+                        }
+                        setPlace ++;
+                    }
+                    setOneValid = 1;
                 }
             }
             cout << "Was it FULLY closed?\n";
             cin >> setOneClosed;
+
             cout << "What was the second meld?\n";
-            cin >> tileStringSecond;
+            while (!setTwoValid)
+            {
+                setTwoError = 0;
+                setTwoLengthError = 0;
+                cin >> tileStringSecond;
+                if (tileStringSecond.length() < 3)
+                {
+                    setTwoLengthError = 1;                          // Melds MUST be comprised of at least three tiles
+                }
+                if (tileStringSecond.length() == 3 && ((tileStringSecond [0] != tileStringEast [0]) && (tileStringSecond [0] != tileStringSouth [0]) && (tileStringSecond [0] != tileStringWest [0]) && (tileStringSecond [0] != tileStringNorth[0]) && (tileStringSecond [0] != tileStringRed [0]) && (tileStringSecond [0] != tileStringGreen [0]) && (tileStringSecond [0] != tileStringWhite [0])))
+                {
+                    setTwoLengthError = 1;                          // If the string length is exactly 3, the meld must be a pon of honors; if it were anything else the string length would be 4 since suit must be stated
+                }
+                if (tileStringSecond.length() > 4 && ((tileStringSecond [0] != tileStringManzu [0]) && (tileStringSecond [0] != tileStringPinzu [0]) && (tileStringSecond [0] == tileStringSouzu [0])))
+                {
+                    setTwoLengthError = 1;                          // Any strings with length 5 indicate kans of normal tiles; there are only four of each tile, so having five of an honor tile is impossible
+                }
+                if (tileStringSecond.length() > 5)
+                {
+                    setTwoLengthError = 1;                          // The maximum string length for a single meld is 5: 1 to declare suit plus 4 for a kan; anything beyond that is impossible to obtain
+                }
+                if (setTwoLengthError == 1)
+                {
+                    cout << invalidMeld;
+                    continue;                                       // If the meld does not satisfy the above conditions, the loop is reset and the user prompted to retry
+                }
+                while (!setTwoValid)
+                {
+                    if (setTwoError == 1)
+                    {
+                        break;
+                    }
+                    setPlace = 0;
+                    while (setPlace < tileStringSecond.length())
+                    {
+                        if ((tileStringSecond [setPlace] != tileStringEast [0]) && (tileStringSecond [setPlace] != tileStringSouth [0]) && (tileStringSecond [setPlace] != tileStringWest [0]) && (tileStringSecond [setPlace] != tileStringNorth [0]) && (tileStringSecond [setPlace] != tileStringRed [0]) && (tileStringSecond [setPlace] != tileStringWhite [0]) && (tileStringSecond [setPlace] != tileStringGreen [0]) && (tileStringSecond [setPlace] != tileStringManzu [0]) && (tileStringSecond [setPlace] != tileStringPinzu [0]) && (tileStringSecond [setPlace] != tileStringSouzu [0]) && (tileStringSecond [setPlace] != tileStringOne [0]) && (tileStringSecond [setPlace] != tileStringTwo [0]) && (tileStringSecond [setPlace] != tileStringThree [0]) && (tileStringSecond [setPlace] != tileStringFour [0]) && (tileStringSecond [setPlace] != tileStringFive [0]) && (tileStringSecond [setPlace] != tileStringSix [0]) && (tileStringSecond [setPlace] != tileStringSeven [0]) && (tileStringSecond [setPlace] != tileStringEight [0]) && (tileStringSecond [setPlace] != tileStringNine [0]))
+                        {
+                            setTwoError = 1;
+                            cout << invalidMeld;
+                            break;
+                        }
+                        setPlace ++;
+                    }
+                    setTwoValid = 1;
+                }
+            }
             cout << "Was it FULLY closed?\n";
             cin >> setTwoClosed;
+
             cout << "What was the third meld?\n";
-            cin >> tileStringThird;
+            while (!setThreeValid)
+            {
+                setThreeError = 0;
+                setThreeLengthError = 0;
+                cin >> tileStringThird;
+                if (tileStringThird.length() < 3)
+                {
+                    setThreeLengthError = 1;                          // Melds MUST be comprised of at least three tiles
+                }
+                if (tileStringThird.length() == 3 && ((tileStringThird [0] != tileStringEast [0]) && (tileStringThird [0] != tileStringSouth [0]) && (tileStringThird [0] != tileStringWest [0]) && (tileStringThird [0] != tileStringNorth[0]) && (tileStringThird [0] != tileStringRed [0]) && (tileStringThird [0] != tileStringGreen [0]) && (tileStringThird [0] != tileStringWhite [0])))
+                {
+                    setThreeLengthError = 1;                          // If the string length is exactly 3, the meld must be a pon of honors; if it were anything else the string length would be 4 since suit must be stated
+                }
+                if (tileStringThird.length() > 4 && ((tileStringThird [0] != tileStringManzu [0]) && (tileStringThird [0] != tileStringPinzu [0]) && (tileStringThird [0] == tileStringSouzu [0])))
+                {
+                    setThreeLengthError = 1;                          // Any strings with length 5 indicate kans of normal tiles; there are only four of each tile, so having five of an honor tile is impossible
+                }
+                if (tileStringThird.length() > 5)
+                {
+                    setThreeLengthError = 1;                          // The maximum string length for a single meld is 5: 1 to declare suit plus 4 for a kan; anything beyond that is impossible to obtain
+                }
+                if (setThreeLengthError == 1)
+                {
+                    cout << invalidMeld;
+                    continue;                                       // If the meld does not satisfy the above conditions, the loop is reset and the user prompted to retry
+                }
+                while (!setThreeValid)
+                {
+                    if (setThreeError == 1)
+                    {
+                        break;
+                    }
+                    setPlace = 0;
+                    while (setPlace < tileStringThird.length())
+                    {
+                        if ((tileStringThird [setPlace] != tileStringEast [0]) && (tileStringThird [setPlace] != tileStringSouth [0]) && (tileStringThird [setPlace] != tileStringWest [0]) && (tileStringThird [setPlace] != tileStringNorth [0]) && (tileStringThird [setPlace] != tileStringRed [0]) && (tileStringThird [setPlace] != tileStringWhite [0]) && (tileStringThird [setPlace] != tileStringGreen [0]) && (tileStringThird [setPlace] != tileStringManzu [0]) && (tileStringThird [setPlace] != tileStringPinzu [0]) && (tileStringThird [setPlace] != tileStringSouzu [0]) && (tileStringThird [setPlace] != tileStringOne [0]) && (tileStringThird [setPlace] != tileStringTwo [0]) && (tileStringThird [setPlace] != tileStringThree [0]) && (tileStringThird [setPlace] != tileStringFour [0]) && (tileStringThird [setPlace] != tileStringFive [0]) && (tileStringThird [setPlace] != tileStringSix [0]) && (tileStringThird [setPlace] != tileStringSeven [0]) && (tileStringThird [setPlace] != tileStringEight [0]) && (tileStringThird [setPlace] != tileStringNine [0]))
+                        {
+                            setThreeError = 1;
+                            cout << invalidMeld;
+                            break;
+                        }
+                        setPlace ++;
+                    }
+                    setThreeValid = 1;
+                }
+            }
             cout << "Was it FULLY closed?\n";
             cin >> setThreeClosed;
+
             cout << "What was the fourth meld?\n";
-            cin >> tileStringFourth;
+            while (!setFourValid)
+            {
+                setFourError = 0;
+                setFourLengthError = 0;
+                cin >> tileStringFourth;
+                if (tileStringFourth.length() < 3)
+                {
+                    setFourLengthError = 1;                          // Melds MUST be comprised of at least three tiles
+                }
+                if (tileStringFourth.length() == 3 && ((tileStringFourth [0] != tileStringEast [0]) && (tileStringFourth [0] != tileStringSouth [0]) && (tileStringFourth [0] != tileStringWest [0]) && (tileStringFourth [0] != tileStringNorth[0]) && (tileStringFourth [0] != tileStringRed [0]) && (tileStringFourth [0] != tileStringGreen [0]) && (tileStringFourth [0] != tileStringWhite [0])))
+                {
+                    setFourLengthError = 1;                          // If the string length is exactly 3, the meld must be a pon of honors; if it were anything else the string length would be 4 since suit must be stated
+                }
+                if (tileStringFourth.length() > 4 && ((tileStringFourth [0] != tileStringManzu [0]) && (tileStringFourth [0] != tileStringPinzu [0]) && (tileStringFourth [0] == tileStringSouzu [0])))
+                {
+                    setFourLengthError = 1;                          // Any strings with length 5 indicate kans of normal tiles; there are only four of each tile, so having five of an honor tile is impossible
+                }
+                if (tileStringFourth.length() > 5)
+                {
+                    setFourLengthError = 1;                          // The maximum string length for a single meld is 5: 1 to declare suit plus 4 for a kan; anything beyond that is impossible to obtain
+                }
+                if (setFourLengthError == 1)
+                {
+                    cout << invalidMeld;
+                    continue;                                       // If the meld does not satisfy the above conditions, the loop is reset and the user prompted to retry
+                }
+                while (!setFourValid)
+                {
+                    if (setFourError == 1)
+                    {
+                        break;
+                    }
+                    setPlace = 0;
+                    while (setPlace < tileStringFourth.length())
+                    {
+                        if ((tileStringFourth [setPlace] != tileStringEast [0]) && (tileStringFourth [setPlace] != tileStringSouth [0]) && (tileStringFourth [setPlace] != tileStringWest [0]) && (tileStringFourth [setPlace] != tileStringNorth [0]) && (tileStringFourth [setPlace] != tileStringRed [0]) && (tileStringFourth [setPlace] != tileStringWhite [0]) && (tileStringFourth [setPlace] != tileStringGreen [0]) && (tileStringFourth [setPlace] != tileStringManzu [0]) && (tileStringFourth [setPlace] != tileStringPinzu [0]) && (tileStringFourth [setPlace] != tileStringSouzu [0]) && (tileStringFourth [setPlace] != tileStringOne [0]) && (tileStringFourth [setPlace] != tileStringTwo [0]) && (tileStringFourth [setPlace] != tileStringThree [0]) && (tileStringFourth [setPlace] != tileStringFour [0]) && (tileStringFourth [setPlace] != tileStringFive [0]) && (tileStringFourth [setPlace] != tileStringSix [0]) && (tileStringFourth [setPlace] != tileStringSeven [0]) && (tileStringFourth [setPlace] != tileStringEight [0]) && (tileStringFourth [setPlace] != tileStringNine [0]))
+                        {
+                            setFourError = 1;
+                            cout << invalidMeld;
+                            break;
+                        }
+                        setPlace ++;
+                    }
+                    setFourValid = 1;
+                }
+            }
             cout << "Was it FULLY closed?\n";
             cin >> setFourClosed;
+
             cout << "What was the pair?\n";
             cin >> tileStringPair;
         }
