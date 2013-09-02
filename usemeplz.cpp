@@ -258,14 +258,11 @@ int main()
                 while (!setOneValid)
                 {
                     setOneError = 0;
-                    for (setPlace = 0; setPlace < tileStringFirst.length(); setPlace++)
+                    for (setPlace = 0; ((tileStringFirst [setPlace] != tileStringEast [0]) || (tileStringFirst [setPlace] != tileStringSouth [0]) || (tileStringFirst [setPlace] != tileStringWest [0]) || (tileStringFirst [setPlace] != tileStringNorth [0]) || (tileStringFirst [setPlace] != tileStringRed [0]) || (tileStringFirst [setPlace] != tileStringWhite [0]) || (tileStringFirst [setPlace] != tileStringGreen [0]) || (tileStringFirst [setPlace] != tileStringManzu [0]) || (tileStringFirst [setPlace] != tileStringPinzu [0]) || (tileStringFirst [setPlace] != tileStringSouzu [0]) || (tileStringFirst [setPlace] != tileStringOne [0]) || (tileStringFirst [setPlace] != tileStringTwo [0]) || (tileStringFirst [setPlace] != tileStringThree [0]) || (tileStringFirst [setPlace] != tileStringFour [0]) || (tileStringFirst [setPlace] != tileStringFive [0]) || (tileStringFirst [setPlace] != tileStringSix [0]) || (tileStringFirst [setPlace] != tileStringSeven [0]) || (tileStringFirst [setPlace] != tileStringEight [0]) || (tileStringFirst [setPlace] != tileStringNine [0])); setPlace++)
                     {
-                        if ((tileStringFirst [setPlace] != tileStringEast [0]) && (tileStringFirst [setPlace] != tileStringSouth [0]) && (tileStringFirst [setPlace] != tileStringWest [0]) && (tileStringFirst [setPlace] != tileStringNorth [0]) && (tileStringFirst [setPlace] != tileStringRed [0]) && (tileStringFirst [setPlace] != tileStringWhite [0]) && (tileStringFirst [setPlace] != tileStringGreen [0]) && (tileStringFirst [setPlace] != tileStringManzu [0]) && (tileStringFirst [setPlace] != tileStringPinzu [0]) && (tileStringFirst [setPlace] != tileStringSouzu [0]) && (tileStringFirst [setPlace] != tileStringOne [0]) && (tileStringFirst [setPlace] != tileStringTwo [0]) && (tileStringFirst [setPlace] != tileStringThree [0]) && (tileStringFirst [setPlace] != tileStringFour [0]) && (tileStringFirst [setPlace] != tileStringFive [0]) && (tileStringFirst [setPlace] != tileStringSix [0]) && (tileStringFirst [setPlace] != tileStringSeven [0]) && (tileStringFirst [setPlace] != tileStringEight [0]) && (tileStringFirst [setPlace] != tileStringNine [0]))
-                        {
-                            setOneError == 1;
-                            cout << invalidMeld;
-                            break;
-                        }
+                        setOneError == 1;
+                        cout << invalidMeld;
+                        break;
                     }
                     if (setOneError == 1)
                     {
