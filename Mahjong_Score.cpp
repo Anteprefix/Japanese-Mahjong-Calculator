@@ -1,4 +1,3 @@
-
 #include <iostream>
 #include <string.h>
 #include<math.h>
@@ -8,6 +7,7 @@ int main()
 
 {
     //initiate string inputs of tiles
+    string machi;
     string tileStringFirst;
     string tileStringSecond;
     string tileStringThird;
@@ -21,8 +21,11 @@ int main()
     string tileStringPairSix;
     string tileStringPairSeven;
     string tileStringPinzu = "P";
+    string tileStringPinzuLower = "p";
     string tileStringSouzu = "B";
+    string tileStringSouzuLower = "b";
     string tileStringManzu = "M";
+    string tileStringManzuLower = "m";
     string tileStringZero = "0";
     string tileStringOne = "1";
     string tileStringTwo = "2";
@@ -34,23 +37,46 @@ int main()
     string tileStringEight = "8";
     string tileStringNine = "9";
     string tileStringEast = "E";
+    string tileStringEastLower = "e";
     string tileStringSouth = "S";
+    string tileStringSouthLower = "s";
     string tileStringWest = "W";
+    string tileStringWestLower = "w";
     string tileStringNorth = "N";
+    string tileStringNorthLower = "n";
     string tileStringGreen = "G";
+    string tileStringGreenLower = "g";
     string tileStringRed = "R";
+    string tileStringRedLower = "r";
     string tileStringWhite = "H";
+    string tileStringWhiteLower = "h";
+    string lengthStringOne = "0";
     string lengthStringFour = "0123";
     string lengthStringFive = "01234";
+    string invalidInput = "Invalid choice. Please re-enter.\n";
+    string invalidMeld = "Invalid meld. Please re-enter.\n";
 
     //initiate binary true false variables and counter variables
     string roundWind;
     string personalWind;
+    int inputValid = 0;
+    int setPlace = 0;
+    int setOneValid = 0;
+    int setOneLengthError = 0;
+    int setOneError = 0;
     int setOneClosed = 0;
+    int setTwoValid = 0;
+    int setTwoLengthError = 0;
+    int setTwoError = 0;
     int setTwoClosed = 0;
+    int setThreeValid = 0;
+    int setThreeLengthError = 0;
+    int setThreeError = 0;
     int setThreeClosed = 0;
+    int setFourValid = 0;
+    int setFourLengthError = 0;
+    int setFourError = 0;
     int setFourClosed = 0;
-    int machi = 0;
     int tsumo = 0;
     int closed = 0;
     int chitoitsu = 0;
@@ -132,12 +158,22 @@ int main()
 
     //ask for input
     cout << "Was the winning wait Ryanmen/Shanpon (0), Penchan/Kanchan (1), Tanki (2), or 9+ Sided Wait (3)?\n";
-    cin >> machi;
-    cout << "Was the hand fully closed?\n";
+    while (inputValid == 0)
+    {
+        inputValid = 1;
+        cin >> machi;
+        if (machi.length() != lengthStringOne.length() || ((machi [0] != tileStringZero [0]) && (machi [0] != tileStringOne [0]) && (machi [0] != tileStringTwo [0]) && (machi [0] != tileStringThree [0])))
+        {
+            inputValid = 0;
+            cout << invalidInput;
+        }
+    }
+
+    cout << "Was the hand fully closed? (1/0)\n";
     cin >> closed;
-    cout << "Did the player tsumo?\n";
+    cout << "Did the player tsumo? (1/0)\n";
     cin >> tsumo;
-    if (machi == 2)
+    if (machi [0] == tileStringTwo [0])
     {
         cout << "Was the winning hand chitoitsu? (1/0)\n";
         cin >> chitoitsu;
@@ -167,7 +203,7 @@ int main()
 
     if (!chitoitsu)
     {
-        if (machi == 3 && closed)
+        if (machi [0] == tileStringThree [0] && closed)
         {
             cout << "Was the winning hand Kokushi Musou?\n";
             cin >> kokushi;
@@ -177,7 +213,7 @@ int main()
             }
 
         }
-        if (machi == 2)
+        if (machi [0] == tileStringTwo [0] && closed)
         {
             cout << "Was the winning hand Kokushi Musou? (1/0)\n";
             cin >> kokushi;
@@ -189,21 +225,205 @@ int main()
             kokushiThirteenWait = 0;
             cout << "List in PBMH/123456789 order.\n";
             cout << "What was the first meld?\n";
-            cin >> tileStringFirst;
+            while (!setOneValid)
+            {
+                setOneError = 0;
+                setOneLengthError = 0;
+                cin >> tileStringFirst;
+                if (tileStringFirst.length() < 3)
+                {
+                    setOneLengthError = 1;                          // Melds MUST be comprised of at least three tiles
+                }
+                if (tileStringFirst.length() == 3 && ((tileStringFirst [0] != tileStringEast [0]) && (tileStringFirst [0] != tileStringSouth [0]) && (tileStringFirst [0] != tileStringWest [0]) && (tileStringFirst [0] != tileStringNorth[0]) && (tileStringFirst [0] != tileStringRed [0]) && (tileStringFirst [0] != tileStringGreen [0]) && (tileStringFirst [0] != tileStringWhite [0])))
+                {
+                    setOneLengthError = 1;                          // If the string length is exactly 3, the meld must be a pon of honors; if it were anything else the string length would be 4 since suit must be stated
+                }
+                if (tileStringFirst.length() > 4 && ((tileStringFirst [0] != tileStringManzu [0]) && (tileStringFirst [0] != tileStringPinzu [0]) && (tileStringFirst [0] == tileStringSouzu [0])))
+                {
+                    setOneLengthError = 1;                          // Any strings with length 5 indicate kans of normal tiles; there are only four of each tile, so having five of an honor tile is impossible
+                }
+                if (tileStringFirst.length() > 5)
+                {
+                    setOneLengthError = 1;                          // The maximum string length for a single meld is 5: 1 to declare suit plus 4 for a kan; anything beyond that is impossible to obtain
+                }
+                if (setOneLengthError == 1)
+                {
+                    cout << invalidMeld;
+                    continue;                                       // If the meld does not satisfy the above conditions, the loop is reset and the user prompted to retry
+                }
+                while (!setOneValid)
+                {
+                    if (setOneError == 1)
+                    {
+                        break;
+                    }
+                    setPlace = 0;
+                    while (setPlace < tileStringFirst.length())
+                    {
+                        if ((tileStringFirst [setPlace] != tileStringEast [0]) && (tileStringFirst [setPlace] != tileStringSouth [0]) && (tileStringFirst [setPlace] != tileStringWest [0]) && (tileStringFirst [setPlace] != tileStringNorth [0]) && (tileStringFirst [setPlace] != tileStringRed [0]) && (tileStringFirst [setPlace] != tileStringWhite [0]) && (tileStringFirst [setPlace] != tileStringGreen [0]) && (tileStringFirst [setPlace] != tileStringManzu [0]) && (tileStringFirst [setPlace] != tileStringPinzu [0]) && (tileStringFirst [setPlace] != tileStringSouzu [0]) && (tileStringFirst [setPlace] != tileStringOne [0]) && (tileStringFirst [setPlace] != tileStringTwo [0]) && (tileStringFirst [setPlace] != tileStringThree [0]) && (tileStringFirst [setPlace] != tileStringFour [0]) && (tileStringFirst [setPlace] != tileStringFive [0]) && (tileStringFirst [setPlace] != tileStringSix [0]) && (tileStringFirst [setPlace] != tileStringSeven [0]) && (tileStringFirst [setPlace] != tileStringEight [0]) && (tileStringFirst [setPlace] != tileStringNine [0]))
+                        {
+                            setOneError = 1;
+                            cout << invalidMeld;
+                            break;
+                        }
+                        setPlace ++;
+                    }
+                    setOneValid = 1;
+                }
+            }
             cout << "Was it FULLY closed?\n";
             cin >> setOneClosed;
+
             cout << "What was the second meld?\n";
-            cin >> tileStringSecond;
+            while (!setTwoValid)
+            {
+                setTwoError = 0;
+                setTwoLengthError = 0;
+                cin >> tileStringSecond;
+                if (tileStringSecond.length() < 3)
+                {
+                    setTwoLengthError = 1;                          // Melds MUST be comprised of at least three tiles
+                }
+                if (tileStringSecond.length() == 3 && ((tileStringSecond [0] != tileStringEast [0]) && (tileStringSecond [0] != tileStringSouth [0]) && (tileStringSecond [0] != tileStringWest [0]) && (tileStringSecond [0] != tileStringNorth[0]) && (tileStringSecond [0] != tileStringRed [0]) && (tileStringSecond [0] != tileStringGreen [0]) && (tileStringSecond [0] != tileStringWhite [0])))
+                {
+                    setTwoLengthError = 1;                          // If the string length is exactly 3, the meld must be a pon of honors; if it were anything else the string length would be 4 since suit must be stated
+                }
+                if (tileStringSecond.length() > 4 && ((tileStringSecond [0] != tileStringManzu [0]) && (tileStringSecond [0] != tileStringPinzu [0]) && (tileStringSecond [0] == tileStringSouzu [0])))
+                {
+                    setTwoLengthError = 1;                          // Any strings with length 5 indicate kans of normal tiles; there are only four of each tile, so having five of an honor tile is impossible
+                }
+                if (tileStringSecond.length() > 5)
+                {
+                    setTwoLengthError = 1;                          // The maximum string length for a single meld is 5: 1 to declare suit plus 4 for a kan; anything beyond that is impossible to obtain
+                }
+                if (setTwoLengthError == 1)
+                {
+                    cout << invalidMeld;
+                    continue;                                       // If the meld does not satisfy the above conditions, the loop is reset and the user prompted to retry
+                }
+                while (!setTwoValid)
+                {
+                    if (setTwoError == 1)
+                    {
+                        break;
+                    }
+                    setPlace = 0;
+                    while (setPlace < tileStringSecond.length())
+                    {
+                        if ((tileStringSecond [setPlace] != tileStringEast [0]) && (tileStringSecond [setPlace] != tileStringSouth [0]) && (tileStringSecond [setPlace] != tileStringWest [0]) && (tileStringSecond [setPlace] != tileStringNorth [0]) && (tileStringSecond [setPlace] != tileStringRed [0]) && (tileStringSecond [setPlace] != tileStringWhite [0]) && (tileStringSecond [setPlace] != tileStringGreen [0]) && (tileStringSecond [setPlace] != tileStringManzu [0]) && (tileStringSecond [setPlace] != tileStringPinzu [0]) && (tileStringSecond [setPlace] != tileStringSouzu [0]) && (tileStringSecond [setPlace] != tileStringOne [0]) && (tileStringSecond [setPlace] != tileStringTwo [0]) && (tileStringSecond [setPlace] != tileStringThree [0]) && (tileStringSecond [setPlace] != tileStringFour [0]) && (tileStringSecond [setPlace] != tileStringFive [0]) && (tileStringSecond [setPlace] != tileStringSix [0]) && (tileStringSecond [setPlace] != tileStringSeven [0]) && (tileStringSecond [setPlace] != tileStringEight [0]) && (tileStringSecond [setPlace] != tileStringNine [0]))
+                        {
+                            setTwoError = 1;
+                            cout << invalidMeld;
+                            break;
+                        }
+                        setPlace ++;
+                    }
+                    setTwoValid = 1;
+                }
+            }
             cout << "Was it FULLY closed?\n";
             cin >> setTwoClosed;
+
             cout << "What was the third meld?\n";
-            cin >> tileStringThird;
+            while (!setThreeValid)
+            {
+                setThreeError = 0;
+                setThreeLengthError = 0;
+                cin >> tileStringThird;
+                if (tileStringThird.length() < 3)
+                {
+                    setThreeLengthError = 1;                          // Melds MUST be comprised of at least three tiles
+                }
+                if (tileStringThird.length() == 3 && ((tileStringThird [0] != tileStringEast [0]) && (tileStringThird [0] != tileStringSouth [0]) && (tileStringThird [0] != tileStringWest [0]) && (tileStringThird [0] != tileStringNorth[0]) && (tileStringThird [0] != tileStringRed [0]) && (tileStringThird [0] != tileStringGreen [0]) && (tileStringThird [0] != tileStringWhite [0])))
+                {
+                    setThreeLengthError = 1;                          // If the string length is exactly 3, the meld must be a pon of honors; if it were anything else the string length would be 4 since suit must be stated
+                }
+                if (tileStringThird.length() > 4 && ((tileStringThird [0] != tileStringManzu [0]) && (tileStringThird [0] != tileStringPinzu [0]) && (tileStringThird [0] == tileStringSouzu [0])))
+                {
+                    setThreeLengthError = 1;                          // Any strings with length 5 indicate kans of normal tiles; there are only four of each tile, so having five of an honor tile is impossible
+                }
+                if (tileStringThird.length() > 5)
+                {
+                    setThreeLengthError = 1;                          // The maximum string length for a single meld is 5: 1 to declare suit plus 4 for a kan; anything beyond that is impossible to obtain
+                }
+                if (setThreeLengthError == 1)
+                {
+                    cout << invalidMeld;
+                    continue;                                       // If the meld does not satisfy the above conditions, the loop is reset and the user prompted to retry
+                }
+                while (!setThreeValid)
+                {
+                    if (setThreeError == 1)
+                    {
+                        break;
+                    }
+                    setPlace = 0;
+                    while (setPlace < tileStringThird.length())
+                    {
+                        if ((tileStringThird [setPlace] != tileStringEast [0]) && (tileStringThird [setPlace] != tileStringSouth [0]) && (tileStringThird [setPlace] != tileStringWest [0]) && (tileStringThird [setPlace] != tileStringNorth [0]) && (tileStringThird [setPlace] != tileStringRed [0]) && (tileStringThird [setPlace] != tileStringWhite [0]) && (tileStringThird [setPlace] != tileStringGreen [0]) && (tileStringThird [setPlace] != tileStringManzu [0]) && (tileStringThird [setPlace] != tileStringPinzu [0]) && (tileStringThird [setPlace] != tileStringSouzu [0]) && (tileStringThird [setPlace] != tileStringOne [0]) && (tileStringThird [setPlace] != tileStringTwo [0]) && (tileStringThird [setPlace] != tileStringThree [0]) && (tileStringThird [setPlace] != tileStringFour [0]) && (tileStringThird [setPlace] != tileStringFive [0]) && (tileStringThird [setPlace] != tileStringSix [0]) && (tileStringThird [setPlace] != tileStringSeven [0]) && (tileStringThird [setPlace] != tileStringEight [0]) && (tileStringThird [setPlace] != tileStringNine [0]))
+                        {
+                            setThreeError = 1;
+                            cout << invalidMeld;
+                            break;
+                        }
+                        setPlace ++;
+                    }
+                    setThreeValid = 1;
+                }
+            }
             cout << "Was it FULLY closed?\n";
             cin >> setThreeClosed;
+
             cout << "What was the fourth meld?\n";
-            cin >> tileStringFourth;
+            while (!setFourValid)
+            {
+                setFourError = 0;
+                setFourLengthError = 0;
+                cin >> tileStringFourth;
+                if (tileStringFourth.length() < 3)
+                {
+                    setFourLengthError = 1;                          // Melds MUST be comprised of at least three tiles
+                }
+                if (tileStringFourth.length() == 3 && ((tileStringFourth [0] != tileStringEast [0]) && (tileStringFourth [0] != tileStringSouth [0]) && (tileStringFourth [0] != tileStringWest [0]) && (tileStringFourth [0] != tileStringNorth[0]) && (tileStringFourth [0] != tileStringRed [0]) && (tileStringFourth [0] != tileStringGreen [0]) && (tileStringFourth [0] != tileStringWhite [0])))
+                {
+                    setFourLengthError = 1;                          // If the string length is exactly 3, the meld must be a pon of honors; if it were anything else the string length would be 4 since suit must be stated
+                }
+                if (tileStringFourth.length() > 4 && ((tileStringFourth [0] != tileStringManzu [0]) && (tileStringFourth [0] != tileStringPinzu [0]) && (tileStringFourth [0] == tileStringSouzu [0])))
+                {
+                    setFourLengthError = 1;                          // Any strings with length 5 indicate kans of normal tiles; there are only four of each tile, so having five of an honor tile is impossible
+                }
+                if (tileStringFourth.length() > 5)
+                {
+                    setFourLengthError = 1;                          // The maximum string length for a single meld is 5: 1 to declare suit plus 4 for a kan; anything beyond that is impossible to obtain
+                }
+                if (setFourLengthError == 1)
+                {
+                    cout << invalidMeld;
+                    continue;                                       // If the meld does not satisfy the above conditions, the loop is reset and the user prompted to retry
+                }
+                while (!setFourValid)
+                {
+                    if (setFourError == 1)
+                    {
+                        break;
+                    }
+                    setPlace = 0;
+                    while (setPlace < tileStringFourth.length())
+                    {
+                        if ((tileStringFourth [setPlace] != tileStringEast [0]) && (tileStringFourth [setPlace] != tileStringSouth [0]) && (tileStringFourth [setPlace] != tileStringWest [0]) && (tileStringFourth [setPlace] != tileStringNorth [0]) && (tileStringFourth [setPlace] != tileStringRed [0]) && (tileStringFourth [setPlace] != tileStringWhite [0]) && (tileStringFourth [setPlace] != tileStringGreen [0]) && (tileStringFourth [setPlace] != tileStringManzu [0]) && (tileStringFourth [setPlace] != tileStringPinzu [0]) && (tileStringFourth [setPlace] != tileStringSouzu [0]) && (tileStringFourth [setPlace] != tileStringOne [0]) && (tileStringFourth [setPlace] != tileStringTwo [0]) && (tileStringFourth [setPlace] != tileStringThree [0]) && (tileStringFourth [setPlace] != tileStringFour [0]) && (tileStringFourth [setPlace] != tileStringFive [0]) && (tileStringFourth [setPlace] != tileStringSix [0]) && (tileStringFourth [setPlace] != tileStringSeven [0]) && (tileStringFourth [setPlace] != tileStringEight [0]) && (tileStringFourth [setPlace] != tileStringNine [0]))
+                        {
+                            setFourError = 1;
+                            cout << invalidMeld;
+                            break;
+                        }
+                        setPlace ++;
+                    }
+                    setFourValid = 1;
+                }
+            }
             cout << "Was it FULLY closed?\n";
             cin >> setFourClosed;
+
             cout << "What was the pair?\n";
             cin >> tileStringPair;
         }
@@ -248,7 +468,7 @@ int main()
         doubleRiichi = 0;
         ippatsu = 0;
     }
-    if (!chitoitsu && tsumo)
+    if (!chitoitsu && !kokushi && tsumo && ((tileStringFirst.length() == lengthStringFour.length() && (tileStringFirst [0] == tileStringEast [0] || tileStringFirst [0] ==  tileStringSouth [0] || tileStringFirst [0] ==  tileStringWest [0] || tileStringFirst [0] ==  tileStringNorth [0] || tileStringFirst [0] ==  tileStringGreen [0] || tileStringFirst [0] ==  tileStringRed [0] || tileStringFirst [0] == tileStringWhite [0])) || (tileStringFirst.length() == lengthStringFive.length() && (tileStringFirst [0] == tileStringPinzu [0] || tileStringFirst [0] == tileStringSouzu [0] || tileStringFirst [0] ==  tileStringManzu [0])) || (tileStringSecond.length() == lengthStringFour.length() && (tileStringSecond [0] == tileStringEast [0] || tileStringSecond [0] ==  tileStringSouth [0] || tileStringSecond [0] ==  tileStringWest [0] || tileStringSecond [0] ==  tileStringNorth [0] || tileStringSecond [0] ==  tileStringGreen [0] || tileStringSecond [0] ==  tileStringRed [0] || tileStringSecond [0] == tileStringWhite [0])) || (tileStringSecond.length() == lengthStringFive.length() && (tileStringSecond [0] == tileStringPinzu [0] || tileStringSecond [0] == tileStringSouzu [0] || tileStringSecond [0] ==  tileStringManzu [0])) || (tileStringThird.length() == lengthStringFour.length() && (tileStringThird [0] == tileStringEast [0] || tileStringThird [0] ==  tileStringSouth [0] || tileStringThird [0] ==  tileStringWest [0] || tileStringThird [0] ==  tileStringNorth [0] || tileStringThird [0] ==  tileStringGreen [0] || tileStringThird [0] ==  tileStringRed [0] || tileStringThird [0] == tileStringWhite [0])) || (tileStringThird.length() == lengthStringFive.length() && (tileStringThird [0] == tileStringPinzu [0] || tileStringThird [0] == tileStringSouzu [0] || tileStringThird [0] ==  tileStringManzu [0])) || (tileStringFourth.length() == lengthStringFour.length() && (tileStringFourth [0] == tileStringEast [0] || tileStringFourth [0] ==  tileStringSouth [0] || tileStringFourth [0] ==  tileStringWest [0] || tileStringFourth [0] ==  tileStringNorth [0] || tileStringFourth [0] ==  tileStringGreen [0] || tileStringFourth [0] ==  tileStringRed [0] || tileStringFourth [0] == tileStringWhite [0])) || (tileStringFourth.length() == lengthStringFive.length() && (tileStringFourth [0] == tileStringPinzu [0] || tileStringFourth [0] == tileStringSouzu [0] || tileStringFourth [0] ==  tileStringManzu [0]))))
     {
         cout << "Did the winner declare kan, then win on the extra draw?\n";
         cin >> rinshan;
@@ -262,7 +482,7 @@ int main()
     {
         chankan = 0;
     }
-    if (!rinshan && !chankan && tsumo)
+    if (!rinshan && !chankan && tsumo && (!ippatsu && !doubleRiichi))
     {
         cout << "Did the winner tsumo on the last tile?\n";
         cin >> haitei;
@@ -271,7 +491,7 @@ int main()
     {
         haitei = 0;
     }
-    if (!rinshan && !chankan && !haitei && !tsumo)
+    if (!rinshan && !chankan && !haitei && !tsumo && (!ippatsu && !doubleRiichi))
     {
         cout << "Did the winner ron on the last tile?\n";
         cin >> houtei;
@@ -282,7 +502,7 @@ int main()
     }
     cout << "Is this the eighth consecutive victory for the winner?\n";
     cin >> paarenchan;
-    if (!dealer && !riichi && !rinshan && !chankan && !haitei && !houtei)
+    if (!dealer && !riichi && !rinshan && !chankan && !haitei && !houtei && closed && !((tileStringFirst.length() == lengthStringFour.length() && (tileStringFirst [0] == tileStringEast [0] || tileStringFirst [0] ==  tileStringSouth [0] || tileStringFirst [0] ==  tileStringWest [0] || tileStringFirst [0] ==  tileStringNorth [0] || tileStringFirst [0] ==  tileStringGreen [0] || tileStringFirst [0] ==  tileStringRed [0] || tileStringFirst [0] == tileStringWhite [0])) || (tileStringFirst.length() == lengthStringFive.length() && (tileStringFirst [0] == tileStringPinzu [0] || tileStringFirst [0] == tileStringSouzu [0] || tileStringFirst [0] ==  tileStringManzu [0])) || (tileStringSecond.length() == lengthStringFour.length() && (tileStringSecond [0] == tileStringEast [0] || tileStringSecond [0] ==  tileStringSouth [0] || tileStringSecond [0] ==  tileStringWest [0] || tileStringSecond [0] ==  tileStringNorth [0] || tileStringSecond [0] ==  tileStringGreen [0] || tileStringSecond [0] ==  tileStringRed [0] || tileStringSecond [0] == tileStringWhite [0])) || (tileStringSecond.length() == lengthStringFive.length() && (tileStringSecond [0] == tileStringPinzu [0] || tileStringSecond [0] == tileStringSouzu [0] || tileStringSecond [0] ==  tileStringManzu [0])) || (tileStringThird.length() == lengthStringFour.length() && (tileStringThird [0] == tileStringEast [0] || tileStringThird [0] ==  tileStringSouth [0] || tileStringThird [0] ==  tileStringWest [0] || tileStringThird [0] ==  tileStringNorth [0] || tileStringThird [0] ==  tileStringGreen [0] || tileStringThird [0] ==  tileStringRed [0] || tileStringThird [0] == tileStringWhite [0])) || (tileStringThird.length() == lengthStringFive.length() && (tileStringThird [0] == tileStringPinzu [0] || tileStringThird [0] == tileStringSouzu [0] || tileStringThird [0] ==  tileStringManzu [0])) || (tileStringFourth.length() == lengthStringFour.length() && (tileStringFourth [0] == tileStringEast [0] || tileStringFourth [0] ==  tileStringSouth [0] || tileStringFourth [0] ==  tileStringWest [0] || tileStringFourth [0] ==  tileStringNorth [0] || tileStringFourth [0] ==  tileStringGreen [0] || tileStringFourth [0] ==  tileStringRed [0] || tileStringFourth [0] == tileStringWhite [0])) || (tileStringFourth.length() == lengthStringFive.length() && (tileStringFourth [0] == tileStringPinzu [0] || tileStringFourth [0] == tileStringSouzu [0] || tileStringFourth [0] ==  tileStringManzu [0]))))
         {
             if (tsumo)
             {
@@ -302,7 +522,7 @@ int main()
         renhou = 0;
         chiihou = 0;
     }
-    if (dealer && !riichi && !rinshan && !chankan && !haitei && !houtei && tsumo)
+    if (dealer && !riichi && !rinshan && !chankan && !haitei && !houtei && tsumo && closed && !((tileStringFirst.length() == lengthStringFour.length() && (tileStringFirst [0] == tileStringEast [0] || tileStringFirst [0] ==  tileStringSouth [0] || tileStringFirst [0] ==  tileStringWest [0] || tileStringFirst [0] ==  tileStringNorth [0] || tileStringFirst [0] ==  tileStringGreen [0] || tileStringFirst [0] ==  tileStringRed [0] || tileStringFirst [0] == tileStringWhite [0])) || (tileStringFirst.length() == lengthStringFive.length() && (tileStringFirst [0] == tileStringPinzu [0] || tileStringFirst [0] == tileStringSouzu [0] || tileStringFirst [0] ==  tileStringManzu [0])) || (tileStringSecond.length() == lengthStringFour.length() && (tileStringSecond [0] == tileStringEast [0] || tileStringSecond [0] ==  tileStringSouth [0] || tileStringSecond [0] ==  tileStringWest [0] || tileStringSecond [0] ==  tileStringNorth [0] || tileStringSecond [0] ==  tileStringGreen [0] || tileStringSecond [0] ==  tileStringRed [0] || tileStringSecond [0] == tileStringWhite [0])) || (tileStringSecond.length() == lengthStringFive.length() && (tileStringSecond [0] == tileStringPinzu [0] || tileStringSecond [0] == tileStringSouzu [0] || tileStringSecond [0] ==  tileStringManzu [0])) || (tileStringThird.length() == lengthStringFour.length() && (tileStringThird [0] == tileStringEast [0] || tileStringThird [0] ==  tileStringSouth [0] || tileStringThird [0] ==  tileStringWest [0] || tileStringThird [0] ==  tileStringNorth [0] || tileStringThird [0] ==  tileStringGreen [0] || tileStringThird [0] ==  tileStringRed [0] || tileStringThird [0] == tileStringWhite [0])) || (tileStringThird.length() == lengthStringFive.length() && (tileStringThird [0] == tileStringPinzu [0] || tileStringThird [0] == tileStringSouzu [0] || tileStringThird [0] ==  tileStringManzu [0])) || (tileStringFourth.length() == lengthStringFour.length() && (tileStringFourth [0] == tileStringEast [0] || tileStringFourth [0] ==  tileStringSouth [0] || tileStringFourth [0] ==  tileStringWest [0] || tileStringFourth [0] ==  tileStringNorth [0] || tileStringFourth [0] ==  tileStringGreen [0] || tileStringFourth [0] ==  tileStringRed [0] || tileStringFourth [0] == tileStringWhite [0])) || (tileStringFourth.length() == lengthStringFive.length() && (tileStringFourth [0] == tileStringPinzu [0] || tileStringFourth [0] == tileStringSouzu [0] || tileStringFourth [0] ==  tileStringManzu [0]))))
     {
         cout << "Did the winner tsumo on the first draw? (Dealer only)\n";
         cin >> tenhou;
@@ -348,7 +568,7 @@ int main()
         {
             yakumanCounter ++;
             chuuren = 1;
-            if (machi == 3)
+            if (machi [0] == tileStringThree [0])
             {
                 yakumanCounter ++;
                 junseiChuuren = 1;
@@ -365,7 +585,7 @@ int main()
         {
             suuankou = 1;
             yakumanCounter ++;
-            if (machi = 2)
+            if (machi [0] = tileStringTwo [0])
             {
                 suuankouTanki = 1;
                 yakumanCounter ++;
@@ -519,7 +739,7 @@ int main()
             han ++;
         }
 
-        if (!chitoitsu && machi == 0 && closed && tileStringFirst [1] != tileStringFirst [2] && tileStringSecond [1] != tileStringSecond [2] && tileStringThird [1] != tileStringThird [2] && tileStringFourth [1] != tileStringFourth [2]  && tileStringPair [0] != roundWind [0] && tileStringPair [0] != personalWind [0] && tileStringPair [0] != tileStringGreen [0] && tileStringPair [0] != tileStringRed [0] && tileStringPair [0] != tileStringWhite [0])
+        if (!chitoitsu && machi [0] == tileStringZero [0] && closed && tileStringFirst [1] != tileStringFirst [2] && tileStringSecond [1] != tileStringSecond [2] && tileStringThird [1] != tileStringThird [2] && tileStringFourth [1] != tileStringFourth [2]  && tileStringPair [0] != roundWind [0] && tileStringPair [0] != personalWind [0] && tileStringPair [0] != tileStringGreen [0] && tileStringPair [0] != tileStringRed [0] && tileStringPair [0] != tileStringWhite [0])
         {
             pinfu = 1;
             han ++;
@@ -588,14 +808,20 @@ int main()
             han = han + 2;
         }
 
-        if ((tileStringPair [0] == tileStringPinzu [0] || tileStringPair [0] == tileStringSouzu [0] || tileStringPair [0] == tileStringManzu [0]) && tileStringPair [1] != tileStringNine [0] && tileStringPair [1] != tileStringOne [0] && ((tileStringFirst [0] == tileStringPinzu [0] || tileStringFirst [0] == tileStringSouzu [0] || tileStringFirst [0] == tileStringManzu [0]) && (tileStringFirst [1] != tileStringOne [0] && tileStringFirst [1] != tileStringNine [0] && tileStringFirst [2] != tileStringOne [0] && tileStringFirst [2] != tileStringNine [0] && tileStringFirst [3] != tileStringOne [0] && tileStringFirst [3] != tileStringNine [0])) && ((tileStringSecond [0] == tileStringPinzu [0] || tileStringSecond [0] == tileStringSouzu [0] || tileStringSecond [0] == tileStringManzu [0]) && (tileStringSecond [1] != tileStringOne [0] && tileStringSecond [1] != tileStringNine [0] && tileStringSecond [2] != tileStringOne [0] && tileStringSecond [2] != tileStringNine [0] && tileStringSecond [3] != tileStringOne [0] && tileStringSecond [3] != tileStringNine [0])) && ((tileStringThird [0] == tileStringPinzu [0] || tileStringThird [0] == tileStringSouzu [0] || tileStringThird [0] == tileStringManzu [0]) && (tileStringThird [1] != tileStringOne [0] && tileStringThird [1] != tileStringNine [0] && tileStringThird [2] != tileStringOne [0] && tileStringThird [2] != tileStringNine [0] && tileStringThird [3] != tileStringOne [0] && tileStringThird [3] != tileStringNine [0])) && ((tileStringFourth [0] == tileStringPinzu [0] || tileStringFourth [0] == tileStringSouzu [0] || tileStringFourth [0] == tileStringManzu [0]) && (tileStringFourth [1] != tileStringOne [0] && tileStringFourth [1] != tileStringNine [0] && tileStringFourth [2] != tileStringOne [0] && tileStringFourth [2] != tileStringNine [0] && tileStringFourth [3] != tileStringOne [0] && tileStringFourth [3] != tileStringNine [0])))
+        if (!chitoitsu && ((tileStringPair [0] == tileStringPinzu [0] || tileStringPair [0] ==  tileStringSouzu [0] || tileStringPair [0] == tileStringManzu [0]) && (tileStringPair [1] != tileStringOne [0] && tileStringPair [1] != tileStringNine [0])) && (tileStringFirst [0] == tileStringPinzu [0] || tileStringFirst [0] == tileStringSouzu [0] || tileStringFirst [0] == tileStringManzu [0]) && (tileStringFirst [1] != tileStringOne [0] && tileStringFirst [3] != tileStringNine [0]) && (tileStringSecond [0] == tileStringPinzu [0] || tileStringSecond [0] ==  tileStringSouzu [0] || tileStringSecond [0] == tileStringManzu [0]) && (tileStringSecond [1] != tileStringOne [0] && tileStringSecond [3] != tileStringNine [0]) && (tileStringThird [0] == tileStringPinzu [0] || tileStringThird [0] == tileStringSouzu [0] || tileStringThird [0] == tileStringManzu [0]) && (tileStringThird [1] != tileStringOne [0] && tileStringThird [3] != tileStringNine [0]) && (tileStringFourth [0] == tileStringPinzu [0] || tileStringFourth [0] == tileStringSouzu [0] || tileStringFourth [0] == tileStringManzu [0]) && (tileStringFourth [1] != tileStringOne [0] && tileStringFourth [3] != tileStringNine [0]))
+        {
+            tanyao = 1;
+            han ++;
+        }
+
+        if (chitoitsu && ((tileStringPairOne [0] == tileStringPinzu [0] || tileStringPairOne [0] == tileStringSouzu [0] || tileStringPairOne [0] == tileStringManzu [0]) && (tileStringPairOne [1] != tileStringOne [0] && tileStringPairOne [1] != tileStringNine [0])) && ((tileStringPairTwo [0] == tileStringPinzu [0] || tileStringPairTwo [0] == tileStringSouzu [0] || tileStringPairTwo [0] == tileStringManzu [0]) && (tileStringPairTwo [1] != tileStringOne [0] && tileStringPairTwo [1] != tileStringNine [0])) && ((tileStringPairThree [0] == tileStringPinzu [0] || tileStringPairThree [0] == tileStringSouzu [0] || tileStringPairThree [0] == tileStringManzu [0]) && (tileStringPairThree [1] != tileStringOne [0] && tileStringPairThree [1] != tileStringNine [0])) && ((tileStringPairFour [0] == tileStringPinzu [0] || tileStringPairFour [0] == tileStringSouzu [0] || tileStringPairFour [0] == tileStringManzu [0]) && (tileStringPairFour [1] != tileStringOne [0] && tileStringPairFour [1] != tileStringNine [0])) && ((tileStringPairFive [0] == tileStringPinzu [0] || tileStringPairFive [0] == tileStringSouzu [0] || tileStringPairFive [0] == tileStringManzu [0]) && (tileStringPairFive [1] != tileStringOne [0] && tileStringPairFive [1] != tileStringNine [0])) && ((tileStringPairSix [0] == tileStringPinzu [0] || tileStringPairSix [0] == tileStringSouzu [0] || tileStringPairSix [0] == tileStringManzu [0]) && (tileStringPairSix [1] != tileStringOne [0] && tileStringPairSix [1] != tileStringNine [0])) && ((tileStringPairSeven [0] == tileStringPinzu [0] || tileStringPairSeven [0] == tileStringSouzu [0] || tileStringPairSeven [0] == tileStringManzu [0]) && (tileStringPairSeven [1] != tileStringOne [0] && tileStringPairSeven [1] != tileStringNine [0])))
         {
             tanyao = 1;
             han ++;
         }
 
         //yakuhai set one
-        if (!chitoitsu && tileStringFirst [0] == tileStringGreen [0])
+        if (!chitoitsu && tileStringFirst [0] == (tileStringGreen [0] || tileStringGreenLower [0]))
         {
             yakuhaiHatsu ++;
         }
@@ -832,11 +1058,13 @@ int main()
             chanta = 0;
         }
 
-        if (!chitoitsu && (tileStringFirst [1] == tileStringFirst [0] || tileStringFirst [1] == tileStringNine [0] || (tileStringFirst [1] == tileStringSeven [0] && tileStringFirst [2] != tileStringFirst [1])) && (tileStringSecond [1] == tileStringSecond [0] || tileStringSecond [1] == tileStringNine [0] || (tileStringSecond [1] == tileStringSeven [0] && tileStringSecond [2] != tileStringSecond [1])) && (tileStringThird [1] == tileStringThird [0] || tileStringThird [1] == tileStringNine [0] || (tileStringThird [1] == tileStringSeven [0] && tileStringThird [2] != tileStringThird [1])) && (tileStringFourth [1] == tileStringFourth [0] || tileStringFourth [1] == tileStringNine [0] || (tileStringFourth [1] == tileStringSeven [0] && tileStringFourth [2] != tileStringFourth [1])))
+        if (!chitoitsu && !honroutou && (tileStringFirst [1] == tileStringFirst [0] || tileStringFirst [1] == tileStringNine [0] || (tileStringFirst [1] == tileStringSeven [0] && tileStringFirst [2] != tileStringFirst [1])) && (tileStringSecond [1] == tileStringSecond [0] || tileStringSecond [1] == tileStringNine [0] || (tileStringSecond [1] == tileStringSeven [0] && tileStringSecond [2] != tileStringSecond [1])) && (tileStringThird [1] == tileStringThird [0] || tileStringThird [1] == tileStringNine [0] || (tileStringThird [1] == tileStringSeven [0] && tileStringThird [2] != tileStringThird [1])) && (tileStringFourth [1] == tileStringFourth [0] || tileStringFourth [1] == tileStringNine [0] || (tileStringFourth [1] == tileStringSeven [0] && tileStringFourth [2] != tileStringFourth [1])))
         {
             junchanta = 1;
             chanta = 0;
         }
+
+        han = han + yakuhaiTon + yakuhaiNan + yakuhaiSha + yakuhaiPei + yakuhaiHatsu + yakuhaiChun + yakuhaiHaku;
 
         if (chanta)
         {
@@ -991,7 +1219,7 @@ int main()
 
                 else
                 {
-                    if (machi == 1 || machi == 2)
+                    if (machi [0] == tileStringOne [0] || machi [0] == tileStringTwo [0])
                     {
                         fu = fu + 2;
                     }
@@ -1116,6 +1344,8 @@ int main()
                             setFourFu = setFourFu * 4;
                         }
                     }
+                    fu = fu + setOneFu + setTwoFu + setThreeFu + setFourFu;
+
                     fuFloat = fu;
 
                     fu = 10 * ceil(fuFloat / 10);
@@ -1213,7 +1443,7 @@ int main()
             {
                 tsumoNondealerPoints = 100 * ceil((basicPointsFloat) / 100);
                 tsumoDealerPoints = 100 * ceil ((basicPointsFloat * 2) / 100);
-                totalPoints = tsumoNondealerPoints + (2 * tsumoDealerPoints);
+                totalPoints = tsumoDealerPoints + (2 * tsumoNondealerPoints);
             }
 
             else
@@ -1224,18 +1454,19 @@ int main()
         }
     }
 
+    cout << "\n";
     if (yakumanCounter > 0)
     {
         if (suuankou)
         {
             if (suuankouTanki)
             {
-                cout << "Suuankou Tanki Machi:  Double Yakuman\n";
+                cout << "Suuankou Tanki Machi:             Double Yakuman\n";
             }
 
             else
             {
-                cout << "Suuankou:    Yakuman\n";
+                cout << "Suuankou:                         Yakuman\n";
             }
         }
 
@@ -1248,96 +1479,96 @@ int main()
 
             else
             {
-                cout << "Kokushi Musou:    Yakuman\n";
+                cout << "Kokushi Musou:                    Yakuman\n";
             }
         }
 
         if (daisangen)
         {
-            cout << "Daisangen:    Yakuman\n";
+            cout << "Daisangen:                        Yakuman\n";
         }
 
         if (shousuushi)
         {
-            cout << "Shousuushi:    Yakuman\n";
+            cout << "Shousuushi:                       Yakuman\n";
         }
 
         if (daisuushi)
         {
-            cout << "Daisuushi:    Double Yakuman\n";
+            cout << "Daisuushi:                        Double Yakuman\n";
         }
 
-        if (tsuuiisou)
+        if (tsuuiisou && !daichisei)
         {
-            cout << "Tsuuisou:    Yakuman\n";
+            cout << "Tsuuiisou:                        Yakuman\n";
         }
 
         if (daichisei)
         {
-            cout << "Daichisei:    Double Yakuman\n";
+            cout << "Daichisei:                        Double Yakuman\n";
         }
 
         if (chinroutou)
         {
-            cout << "Chinroutou:    Yakuman\n";
+            cout << "Chinroutou:                       Yakuman\n";
         }
 
         if (ryuuiisou)
         {
-            cout << "Ryuuiisou:    Yakuman\n";
+            cout << "Ryuuiisou:                        Yakuman\n";
         }
 
         if (daisharin)
         {
-            cout << "Daisharin:    Yakuman\n";
+            cout << "Daisharin:                        Yakuman\n";
         }
 
         if (daichikurin)
         {
-            cout << "Daichikurin:    Yakuman\n";
+            cout << "Daichikurin:                      Yakuman\n";
         }
 
         if (daisuurin)
         {
-            cout << "Daisuurin:    Yakuman\n";
+            cout << "Daisuurin:                        Yakuman\n";
         }
 
         if (chuuren)
         {
             if (junseiChuuren)
             {
-                cout << "Junsei Chuuren Poutou:    Double Yakuman\n";
+                cout << "Junsei Chuuren Poutou:            Double Yakuman\n";
             }
 
             else
             {
-                cout << "Chuuren Poutou:    Yakuman\n";
+                cout << "Chuuren Poutou:                   Yakuman\n";
             }
         }
 
         if (suukantsu)
         {
-            cout << "Suukantsu:    Yakuman\n";
+            cout << "Suukantsu:                        Yakuman\n";
         }
 
         if (paarenchan)
         {
-            cout << "Paarenchan:    Yakuman\n";
+            cout << "Paarenchan:                       Yakuman\n";
         }
 
         if (renhou)
         {
-            cout << "Renhou:    Yakuman\n";
+            cout << "Renhou:                           Yakuman\n";
         }
 
         if (chiihou)
         {
-            cout << "Chiihou:    Yakuman\n";
+            cout << "Chiihou:                          Yakuman\n";
         }
 
         if (tenhou)
         {
-            cout << "Tenhou:    Double Yakuman\n";
+            cout << "Tenhou:                           Yakuman\n";
         }
 
         if (yakumanCounter == 1)
@@ -1401,65 +1632,65 @@ int main()
         {
             if (doubleRiichi)
             {
-                cout << "Double Riichi:    2 Han\n";
+                cout << "Double Riichi:                    2 Han\n";
             }
 
             if (!doubleRiichi)
             {
-                cout << "Riichi:    1 Han\n";
+                cout << "Riichi:                           1 Han\n";
             }
 
             if (ippatsu)
             {
-                cout << "Ippatsu:    1 Han\n";
+                cout << "Ippatsu:                          1 Han\n";
             }
         }
 
         if (chitoitsu)
         {
-            cout << "Chitoitsu:    2 Han\n";
+            cout << "Chitoitsu:                        2 Han\n";
         }
 
         if (menzenTsumo)
         {
-            cout << "Menzen Tsumo:    1 Han\n";
+            cout << "Menzen Tsumo:                     1 Han\n";
         }
 
         if (haitei)
         {
-            cout << "Haitei Raoyue:    1 Han\n";
+            cout << "Haitei Raoyue:                    1 Han\n";
         }
 
         if (houtei)
         {
-            cout << "Houtei Raoyui:    1 Han\n";
+            cout << "Houtei Raoyui:                    1 Han\n";
         }
 
         if (rinshan)
         {
-            cout << "Rinshan Kaihou:    1 Han\n";
+            cout << "Rinshan Kaihou:                   1 Han\n";
         }
 
         if (chankan)
         {
-            cout << "Chankan:    1 Han\n";
+            cout << "Chankan:                          1 Han\n";
         }
 
         if (pinfu)
         {
-            cout << "Pinfu:    1 Han\n";
+            cout << "Pinfu:                            1 Han\n";
         }
 
         if (itsuu)
         {
             if (closed)
             {
-                cout << "Itsuu:    2 Han\n";
+                cout << "Itsuu:                            2 Han\n";
             }
 
             else
             {
-                cout << "Itsuu:    1 Han\n";
+                cout << "Itsuu:                            1 Han\n";
             }
         }
 
@@ -1467,12 +1698,12 @@ int main()
         {
             if (ryanpeikou)
             {
-                cout << "Ryanpeikou:    3 Han\n";
+                cout << "Ryanpeikou:                       3 Han\n";
             }
 
             else
             {
-                cout << "Iipeikou:    1 Han\n";
+                cout << "Iipeikou:                         1 Han\n";
             }
         }
 
@@ -1480,65 +1711,105 @@ int main()
         {
             if (closed)
             {
-                cout << "Sanshoku Doujun:    2 Han\n";
+                cout << "Sanshoku Doujun:                  2 Han\n";
             }
 
             else
             {
-                cout << "Sanshoku Doujun:    1 Han\n";
+                cout << "Sanshoku Doujun:                  1 Han\n";
             }
         }
 
         if (toitoi)
         {
-            cout << "Toitoi:    2 Han\n";
+            cout << "Toitoi:                           2 Han\n";
         }
 
         if (sanankou)
         {
-            cout << "Sanankou:    2 Han\n";
+            cout << "Sanankou:                         2 Han\n";
         }
 
         if (sanshokuDoukou)
         {
-            cout << "Sanshoku Doukou:    2 Han\n";
+            cout << "Sanshoku Doukou:                  2 Han\n";
         }
 
         if (sankantsu)
         {
-            cout << "Sankantsu:    2 Han\n";
+            cout << "Sankantsu:                        2 Han\n";
         }
 
         if (tanyao)
         {
-            cout << "Tanyao:    1 Han\n";
+            cout << "Tanyao:                           1 Han\n";
+        }
+
+        if (yakuhaiTon == 1)
+        {
+            cout << "Ton:                              1 Han\n";
+        }
+
+        if (yakuhaiTon == 2)
+        {
+            cout << "Double Ton:                       2 Han\n";
+        }
+
+        if (yakuhaiNan == 1)
+        {
+            cout << "Nan:                              1 Han\n";
+        }
+
+        if (yakuhaiNan == 2)
+        {
+            cout << "Double Nan:                       2 Han\n";
+        }
+
+        if (yakuhaiSha == 1)
+        {
+            cout << "Sha:                              1 Han\n";
+        }
+
+        if (yakuhaiSha == 2)
+        {
+            cout << "Double Sha:                       2 Han\n";
+        }
+
+        if (yakuhaiPei == 1)
+        {
+            cout << "Pei:                              1 Han\n";
+        }
+
+        if (yakuhaiPei == 2)
+        {
+            cout << "Double Pei:                       2 Han\n";
         }
 
         if (yakuhaiHatsu)
         {
-            cout << "Hatsu:    1 Han\n";
+            cout << "Hatsu:                            1 Han\n";
         }
 
         if (yakuhaiChun)
         {
-            cout << "Chun:    1 Han\n";
+            cout << "Chun:                             1 Han\n";
         }
 
         if (yakuhaiHaku)
         {
-            cout << "Haku:    1 Han\n";
+            cout << "Haku:                             1 Han\n";
         }
 
         if (chanta)
         {
             if (closed)
             {
-                cout << "Chanta:    2 Han\n";
+                cout << "Chanta:                           2 Han\n";
             }
 
             else
             {
-                cout << "Chanta:    1 Han\n";
+                cout << "Chanta:                           1 Han\n";
             }
         }
 
@@ -1546,35 +1817,35 @@ int main()
         {
             if (closed)
             {
-                cout << "Jun Chanta:    3 Han\n";
+                cout << "Jun Chanta:                       3 Han\n";
             }
 
             else
             {
-                cout << "Jun Chanta:    2 Han\n";
+                cout << "Jun Chanta:                       2 Han\n";
             }
         }
 
         if (honroutou)
         {
-            cout << "Honroutou:    2 Han\n";
+            cout << "Honroutou:                        2 Han\n";
         }
 
         if (shousangen)
         {
-            cout << "Shousangen:    2 Han\n";
+            cout << "Shousangen:                       2 Han\n";
         }
 
         if (honitsuPinzu)
         {
             if (closed)
             {
-                cout << "Pinzu Honitsu:    3 Han\n";
+                cout << "Pinzu Honitsu:                    3 Han\n";
             }
 
             else
             {
-                cout << "Pinzu Honitsu:    2 Han\n";
+                cout << "Pinzu Honitsu:                    2 Han\n";
             }
         }
 
@@ -1582,12 +1853,12 @@ int main()
         {
             if (closed)
             {
-                cout << "Souzu Honitsu:    3 Han\n";
+                cout << "Souzu Honitsu:                    3 Han\n";
             }
 
             else
             {
-                cout << "Souzu Honitsu:    2 Han\n";
+                cout << "Souzu Honitsu:                    2 Han\n";
             }
         }
 
@@ -1595,12 +1866,12 @@ int main()
         {
             if (closed)
             {
-                cout << "Manzu Honitsu:    3 Han\n";
+                cout << "Manzu Honitsu:                    3 Han\n";
             }
 
             else
             {
-                cout << "Manzu Honitsu:    2 Han\n";
+                cout << "Manzu Honitsu:                    2 Han\n";
             }
         }
 
@@ -1608,12 +1879,12 @@ int main()
         {
             if (closed)
             {
-                cout << "Pinzu Chinitsu:    6 Han\n";
+                cout << "Pinzu Chinitsu:                   6 Han\n";
             }
 
             else
             {
-                cout << "Pinzu Chinitsu:    5 Han\n";
+                cout << "Pinzu Chinitsu:                   5 Han\n";
             }
         }
 
@@ -1621,12 +1892,12 @@ int main()
         {
             if (closed)
             {
-                cout << "Souzu Chinitsu:    6 Han\n";
+                cout << "Souzu Chinitsu:                   6 Han\n";
             }
 
             else
             {
-                cout << "Souzu Chinitsu:    5 Han\n";
+                cout << "Souzu Chinitsu:                   5 Han\n";
             }
         }
 
@@ -1634,22 +1905,34 @@ int main()
         {
             if (closed)
             {
-                cout << "Manzu Chinitsu:    6 Han\n";
+                cout << "Manzu Chinitsu:                   6 Han\n";
             }
 
             else
             {
-                cout << "Manzu Chinitsu:    5 Han\n";
+                cout << "Manzu Chinitsu:                   5 Han\n";
             }
         }
 
         if (dora > 0)
         {
-            cout << dora;
-            cout << " Dora:    ";
-            cout << dora;
-            cout << " Han\n";
+            if (dora < 10)
+            {
+                cout << dora;
+                cout << " Dora:                           ";
+                cout << dora;
+                cout << " Han\n";
+            }
+            if (dora > 10)
+            {
+                cout << dora;
+                cout << " Dora:                          ";
+                cout << dora;
+                cout << " Han\n";
+            }
         }
+
+        cout << "\n";
 
         if (han == 0)
         {
@@ -1663,14 +1946,14 @@ int main()
             }
             if (!dealer)
             {
-                cout << "2000/4000";
+                cout << "2000/4000\n";
             }
 
         }
 
-        if (chombo == 0)
+        if (!chombo)
         {
-            if (0 < han < 5)
+            if (han < 5)
             {
                 cout << han;
                 cout << " Han ";
@@ -1709,6 +1992,23 @@ int main()
                 cout << "Yakuman\n";
             }
 
+            if (bonusRoundNumber > 0)
+            {
+                cout << "Bonus ";
+                cout << bonusRoundNumber;
+                cout << "                           +";
+                cout << 300 * bonusRoundNumber;
+                cout << "\n";
+            }
+
+            if (riichibon > 0)
+            {
+                cout << "Riichi Bet(s)";
+                cout << "                     +";
+                cout << 1000 * riichibon;
+                cout << "\n";
+            }
+
             if (dealer)
             {
                 if (tsumo)
@@ -1742,16 +2042,15 @@ int main()
             }
         }
 
-    if (chombo == 0)
+    if (!chombo)
     {
         cout << "Total Points Earned: ";
-        cout << totalPoints + (300 * bonusRoundNumber) + (1000 * riichibon);
+        cout << totalPoints + (300 * bonusRoundNumber) + (1000 * riichibon) << "\n";
     }
-    if (chombo == 1)
+    if (chombo)
     {
-        cout << "No Points Earned";
+        cout << "No Points Earned\n";
     }
 
     }
 }
-
