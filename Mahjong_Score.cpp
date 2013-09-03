@@ -21,11 +21,8 @@ int main()
     string tileStringPairSix;
     string tileStringPairSeven;
     string tileStringPinzu = "P";
-    string tileStringPinzuLower = "p";
     string tileStringSouzu = "B";
-    string tileStringSouzuLower = "b";
     string tileStringManzu = "M";
-    string tileStringManzuLower = "m";
     string tileStringZero = "0";
     string tileStringOne = "1";
     string tileStringTwo = "2";
@@ -37,19 +34,12 @@ int main()
     string tileStringEight = "8";
     string tileStringNine = "9";
     string tileStringEast = "E";
-    string tileStringEastLower = "e";
     string tileStringSouth = "S";
-    string tileStringSouthLower = "s";
     string tileStringWest = "W";
-    string tileStringWestLower = "w";
     string tileStringNorth = "N";
-    string tileStringNorthLower = "n";
     string tileStringGreen = "G";
-    string tileStringGreenLower = "g";
     string tileStringRed = "R";
-    string tileStringRedLower = "r";
     string tileStringWhite = "H";
-    string tileStringWhiteLower = "h";
     string lengthStringOne = "0";
     string lengthStringFour = "0123";
     string lengthStringFive = "01234";
@@ -169,14 +159,47 @@ int main()
         }
     }
 
+    inputValid = 0;
     cout << "Was the hand fully closed? (1/0)\n";
-    cin >> closed;
-    cout << "Did the player tsumo? (1/0)\n";
-    cin >> tsumo;
-    if (machi [0] == tileStringTwo [0])
+    while (inputValid == 0)
     {
+        inputValid = 1;
+        cin >> closed;
+        if (closed != 0 && closed != 1)
+        {
+            inputValid = 0;
+            cout << invalidInput;
+        }
+    }
+
+    inputValid = 0;
+    cout << "Did the player tsumo? (1/0)\n";
+    while (inputValid == 0)
+    {
+        inputValid = 1;
+        cin >> tsumo;
+        if (tsumo != 0 && tsumo != 1)
+        {
+            inputValid = 0;
+            cout << invalidInput;
+        }
+    }
+
+    if (machi [0] == tileStringTwo [0] && closed)
+    {
+        inputValid = 0;
         cout << "Was the winning hand chitoitsu? (1/0)\n";
-        cin >> chitoitsu;
+            while (inputValid == 0)
+        {
+            inputValid = 1;
+            cin >> chitoitsu;
+            if (chitoitsu != 0 && chitoitsu != 1)
+            {
+                inputValid = 0;
+                cout << invalidInput;
+            }
+        }
+
     }
     else
     {
@@ -821,7 +844,7 @@ int main()
         }
 
         //yakuhai set one
-        if (!chitoitsu && tileStringFirst [0] == (tileStringGreen [0] || tileStringGreenLower [0]))
+        if (!chitoitsu && tileStringFirst [0] == tileStringGreen [0])
         {
             yakuhaiHatsu ++;
         }
