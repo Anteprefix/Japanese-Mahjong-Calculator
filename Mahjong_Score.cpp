@@ -1,6 +1,6 @@
 #include <iostream>
 #include <string.h>
-#include<math.h>
+#include <math.h>
 using namespace std;
 
 int main()
@@ -45,6 +45,8 @@ int main()
     string lengthStringFive = "01234";
     string invalidInput = "Invalid choice. Please re-enter.\n";
     string invalidMeld = "Invalid meld. Please re-enter.\n";
+
+    string pause;
 
     //initiate binary true false variables and counter variables
     string roundWind;
@@ -2076,4 +2078,7 @@ int main()
     }
 
     }
+
+    cout << "Enter something to continue:\n";
+    cin >> pause;          //This is a terrible solution. TODO figure out something better.
 }
