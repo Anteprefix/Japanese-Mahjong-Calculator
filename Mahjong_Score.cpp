@@ -263,7 +263,7 @@ int main()
                 {
                     setOneLengthError = 1;                          // If the string length is exactly 3, the meld must be a pon of honors; if it were anything else the string length would be 4 since suit must be stated
                 }
-                if (tileStringFirst.length() > 4 && ((tileStringFirst [0] != tileStringManzu [0]) && (tileStringFirst [0] != tileStringPinzu [0]) && (tileStringFirst [0] == tileStringSouzu [0])))
+                if (tileStringFirst.length() > 4 && ((tileStringFirst [0] != tileStringManzu [0]) && (tileStringFirst [0] != tileStringPinzu [0]) && (tileStringFirst [0] != tileStringSouzu [0])))
                 {
                     setOneLengthError = 1;                          // Any strings with length 5 indicate kans of normal tiles; there are only four of each tile, so having five of an honor tile is impossible
                 }
@@ -313,7 +313,7 @@ int main()
                 {
                     setTwoLengthError = 1;                          // If the string length is exactly 3, the meld must be a pon of honors; if it were anything else the string length would be 4 since suit must be stated
                 }
-                if (tileStringSecond.length() > 4 && ((tileStringSecond [0] != tileStringManzu [0]) && (tileStringSecond [0] != tileStringPinzu [0]) && (tileStringSecond [0] == tileStringSouzu [0])))
+                if (tileStringSecond.length() > 4 && ((tileStringSecond [0] != tileStringManzu [0]) && (tileStringSecond [0] != tileStringPinzu [0]) && (tileStringSecond [0] != tileStringSouzu [0])))
                 {
                     setTwoLengthError = 1;                          // Any strings with length 5 indicate kans of normal tiles; there are only four of each tile, so having five of an honor tile is impossible
                 }
@@ -363,7 +363,7 @@ int main()
                 {
                     setThreeLengthError = 1;                          // If the string length is exactly 3, the meld must be a pon of honors; if it were anything else the string length would be 4 since suit must be stated
                 }
-                if (tileStringThird.length() > 4 && ((tileStringThird [0] != tileStringManzu [0]) && (tileStringThird [0] != tileStringPinzu [0]) && (tileStringThird [0] == tileStringSouzu [0])))
+                if (tileStringThird.length() > 4 && ((tileStringThird [0] != tileStringManzu [0]) && (tileStringThird [0] != tileStringPinzu [0]) && (tileStringThird [0] != tileStringSouzu [0])))
                 {
                     setThreeLengthError = 1;                          // Any strings with length 5 indicate kans of normal tiles; there are only four of each tile, so having five of an honor tile is impossible
                 }
@@ -413,7 +413,7 @@ int main()
                 {
                     setFourLengthError = 1;                          // If the string length is exactly 3, the meld must be a pon of honors; if it were anything else the string length would be 4 since suit must be stated
                 }
-                if (tileStringFourth.length() > 4 && ((tileStringFourth [0] != tileStringManzu [0]) && (tileStringFourth [0] != tileStringPinzu [0]) && (tileStringFourth [0] == tileStringSouzu [0])))
+                if (tileStringFourth.length() > 4 && ((tileStringFourth [0] != tileStringManzu [0]) && (tileStringFourth [0] != tileStringPinzu [0]) && (tileStringFourth [0] != tileStringSouzu [0])))
                 {
                     setFourLengthError = 1;                          // Any strings with length 5 indicate kans of normal tiles; there are only four of each tile, so having five of an honor tile is impossible
                 }
