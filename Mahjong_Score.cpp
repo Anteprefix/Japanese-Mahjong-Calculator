@@ -117,6 +117,7 @@ int main()
     int daichikurin = 0;
     int daisuurin = 0;
     int han = 0;
+    int yakuHan = 0;
     int menzenTsumo = 0;
     int pinfu = 0;
     int itsuu = 0;
@@ -191,7 +192,7 @@ int main()
     if (machi [0] == tileStringTwo [0] && closed)
     {
 
-        cout << "Was the winning hand chitoitsu? (1/0)\n";
+        cout << "Was the winning hand chitoitsu? (y/n)\n";
         cin >> chitoitsuString;
         chitoitsu = checkError::convertToInt(chitoitsuString);
         while (checkError::inputChecking(chitoitsu) == 1)
@@ -687,53 +688,53 @@ int main()
     {
         if (riichi)
         {
-            han ++;
+            yakuHan ++;
             if (doubleRiichi)
             {
-                han ++;
+                yakuHan ++;
             }
 
             if (ippatsu)
             {
-                han ++;
+                yakuHan ++;
             }
         }
 
         if (chitoitsu)
         {
-            han = han + 2;
+            yakuHan = yakuHan + 2;
         }
 
         if (tsumo && closed)
         {
             menzenTsumo = 1;
-            han ++;
+            yakuHan ++;
         }
 
         if (haitei)
         {
-            han ++;
+            yakuHan ++;
         }
 
         if (houtei)
         {
-            han ++;
+            yakuHan ++;
         }
 
         if (rinshan)
         {
-            han ++;
+            yakuHan ++;
         }
 
         if (chankan)
         {
-            han ++;
+            yakuHan ++;
         }
 
         if (!chitoitsu && machi [0] == tileStringZero [0] && closed && tileStringFirst [1] != tileStringFirst [2] && tileStringSecond [1] != tileStringSecond [2] && tileStringThird [1] != tileStringThird [2] && tileStringFourth [1] != tileStringFourth [2]  && tileStringPair [0] != roundWind [0] && tileStringPair [0] != personalWind [0] && tileStringPair [0] != tileStringGreen [0] && tileStringPair [0] != tileStringRed [0] && tileStringPair [0] != tileStringWhite [0])
         {
             pinfu = 1;
-            han ++;
+            yakuHan ++;
         }
 
         if ((!chitoitsu && tileStringFirst [1] == tileStringOne [0] && tileStringFirst [2] == tileStringTwo [0] && tileStringSecond [1] == tileStringFour [0] && tileStringSecond [2] == tileStringFive [0] && tileStringThird [1] == tileStringSeven [0] && tileStringThird [2] == tileStringEight [0]) || (tileStringSecond [1] == tileStringOne [0] && tileStringSecond [2] == tileStringTwo [0] && tileStringThird [1] == tileStringFour [0] && tileStringThird [2] == tileStringFive [0] && tileStringFourth [1] == tileStringSeven [0] && tileStringFourth [2] == tileStringEight [0]))
@@ -741,25 +742,25 @@ int main()
             itsuu = 1;
             if (closed)
             {
-                han = han + 2;
+                yakuHan = yakuHan + 2;
             }
 
             else
             {
-                han ++;
+                yakuHan ++;
             }
         }
 
         if (!chitoitsu && closed && ((tileStringFirst [0] == tileStringSecond [0] && tileStringFirst [1] != tileStringFirst [2] && tileStringSecond [1] != tileStringSecond [2] && tileStringFirst [1] == tileStringSecond [1]) || (tileStringSecond [0] == tileStringThird [0] && tileStringSecond [1] != tileStringSecond [2] && tileStringThird [1] != tileStringThird [2] && tileStringSecond [1] == tileStringThird [1]) || (tileStringThird [0] == tileStringFourth [0] && tileStringThird [1] != tileStringThird [2] && tileStringFourth [1] != tileStringFourth [2] && tileStringThird [1] == tileStringFourth [1])))
         {
             iipeikou = 1;
-            han ++;
+            yakuHan ++;
         }
 
         if (!chitoitsu && iipeikou && closed && (tileStringFirst [0] == tileStringSecond [0] && tileStringFirst [1] != tileStringFirst [2] && tileStringSecond [1] != tileStringSecond [2] && tileStringFirst [1] == tileStringSecond [1]) && (tileStringThird [0] == tileStringFourth [0] && tileStringThird [1] != tileStringThird [2] && tileStringFourth [1] != tileStringFourth [2] && tileStringThird [1] == tileStringFourth [1]))
         {
             ryanpeikou = 1;
-            han = han + 2;
+            yakuHan = yakuHan + 2;
         }
 
         if (!chitoitsu && (tileStringFirst [0] != tileStringSecond [0] && tileStringFirst [0] != tileStringThird [0] && tileStringSecond [0] != tileStringThird [0] && tileStringFirst [1] != tileStringFirst [2] && tileStringSecond [1] != tileStringSecond [2] && tileStringThird [1] != tileStringThird [2] && tileStringFirst [1] == tileStringSecond [1] && tileStringFirst [1] == tileStringThird [1]) || (tileStringSecond [0] != tileStringThird [0] && tileStringSecond [0] != tileStringFourth [0] && tileStringThird [0] != tileStringFourth [0] && tileStringSecond [1] != tileStringSecond [2] && tileStringThird [1] != tileStringThird [2] && tileStringFourth [1] != tileStringFourth [2] && tileStringSecond [1] == tileStringThird [1] && tileStringSecond [1] == tileStringFourth [1]) || (tileStringFirst [0] != tileStringThird [0] && tileStringFirst [0] != tileStringFourth [0] && tileStringThird [0] != tileStringFourth [0] && tileStringFirst [1] != tileStringFirst [2] && tileStringThird [1] != tileStringThird [2] && tileStringFourth [1] != tileStringFourth [2] && tileStringFirst [1] == tileStringThird [1] && tileStringFirst [1] == tileStringFourth [1]) || (tileStringFirst [0] != tileStringSecond [0] && tileStringFirst [0] != tileStringFourth [0] && tileStringSecond [0] != tileStringFourth [0] && tileStringFirst [1] != tileStringFirst [2] && tileStringSecond [1] != tileStringSecond [2] && tileStringFourth [1] != tileStringFourth [2] && tileStringFirst [1] == tileStringSecond [1] && tileStringFirst [1] == tileStringFourth [1]))
@@ -767,48 +768,48 @@ int main()
             sanshokuDoujun = 1;
             if (closed)
             {
-                han = han + 2;
+                yakuHan = yakuHan + 2;
             }
             else
             {
-                han ++;
+                yakuHan ++;
             }
         }
 
         if (!chitoitsu && tileStringFirst [1] == tileStringFirst [2] && tileStringSecond [1] == tileStringSecond [2] && tileStringThird [1] == tileStringThird [2] && tileStringFourth [1] == tileStringFourth [2])
         {
             toitoi = 1;
-            han = han + 2;
+            yakuHan = yakuHan + 2;
         }
 
         if (!chitoitsu && ((tileStringFirst [1] == tileStringFirst [2] && tileStringSecond [1] == tileStringSecond [2] && tileStringThird [1] == tileStringThird [2] && setOneClosed && setTwoClosed && setThreeClosed) || (tileStringFirst [1] == tileStringFirst [2] && tileStringSecond [1] == tileStringSecond [2] && tileStringFourth [1] == tileStringFourth [2] && setOneClosed && setTwoClosed && setFourClosed) || (tileStringFirst [1] == tileStringFirst [2] && tileStringThird [1] == tileStringThird [2] && tileStringFourth [1] == tileStringFourth [2] && setOneClosed && setThreeClosed && setFourClosed) || (tileStringSecond [1] == tileStringSecond [2] && tileStringThird [1] == tileStringThird [2] && tileStringFourth [1] == tileStringFourth [2] && setTwoClosed && setThreeClosed && setFourClosed)))
         {
             sanankou = 1;
-            han = han + 2;
+            yakuHan = yakuHan + 2;
         }
 
         if (!chitoitsu && ((tileStringFirst [0] == tileStringPinzu [0] && tileStringSecond [0] == tileStringSouzu [0] && tileStringThird [0] == tileStringManzu [0] && tileStringFirst [1] == tileStringFirst [2] && tileStringSecond [1] == tileStringSecond [2] && tileStringThird [1] == tileStringThird [2] && tileStringFirst [1] == tileStringSecond [1] && tileStringFirst [1] == tileStringThird [1]) || (tileStringFirst [0] == tileStringPinzu [0] && tileStringSecond [0] == tileStringSouzu [0] && tileStringFourth [0] == tileStringManzu [0] && tileStringFirst [1] == tileStringFirst [2] && tileStringSecond [1] == tileStringSecond [2] && tileStringFourth [1] == tileStringFourth [2] && tileStringFirst [1] == tileStringSecond [1] && tileStringFirst [1] == tileStringFourth [1]) || (tileStringFirst [0] == tileStringPinzu [0] && tileStringThird [0] == tileStringSouzu [0] && tileStringFourth [0] == tileStringManzu [0] && tileStringFirst [1] == tileStringFirst [2] && tileStringThird [1] == tileStringThird [2] && tileStringFourth [1] == tileStringFourth [2] && tileStringFirst [1] == tileStringThird [1] && tileStringFirst [1] == tileStringFourth [1]) || (tileStringSecond [0] == tileStringPinzu [0] && tileStringThird [0] == tileStringSouzu [0] && tileStringFourth [0] == tileStringManzu [0] && tileStringSecond [1] == tileStringSecond [2] && tileStringThird [1] == tileStringThird [2] && tileStringFourth [1] == tileStringFourth [2] && tileStringSecond [1] == tileStringThird [1] && tileStringSecond [1] == tileStringFourth [1])))
         {
             sanshokuDoukou = 1;
-            han = han + 2;
+            yakuHan = yakuHan + 2;
         }
 
         if (!chitoitsu && (((((tileStringFirst [0] == tileStringPinzu [0] || tileStringFirst [0] == tileStringSouzu [0] || tileStringFirst [0] == tileStringManzu [0]) && tileStringFirst.length() == lengthStringFive.length()) || ((tileStringFirst [0] == tileStringEast [0] || tileStringFirst [0] == tileStringSouth [0] || tileStringFirst [0] == tileStringWest [0] || tileStringFirst [0] == tileStringNorth [0] || tileStringFirst [0] == tileStringGreen [0] || tileStringFirst [0] == tileStringRed [0] || tileStringFirst [0] == tileStringWhite [0]) && tileStringFirst.length() == lengthStringFour.length())) && (((tileStringSecond [0] == tileStringPinzu [0] || tileStringSecond [0] == tileStringSouzu [0] || tileStringSecond [0] == tileStringManzu [0]) && tileStringSecond.length() == lengthStringFive.length()) || ((tileStringSecond [0] == tileStringEast [0] || tileStringSecond [0] == tileStringSouth [0] || tileStringSecond [0] == tileStringWest [0] || tileStringSecond [0] == tileStringNorth [0] || tileStringSecond [0] == tileStringGreen [0] || tileStringSecond [0] == tileStringRed [0] || tileStringSecond [0] == tileStringWhite [0]) && tileStringSecond.length() == lengthStringFour.length())) && (((tileStringThird [0] == tileStringPinzu [0] || tileStringThird [0] == tileStringSouzu [0] || tileStringThird [0] == tileStringManzu [0]) && tileStringThird.length() == lengthStringFive.length()) || ((tileStringThird [0] == tileStringEast [0] || tileStringThird [0] == tileStringSouth [0] || tileStringThird [0] == tileStringWest [0] || tileStringThird [0] == tileStringNorth [0] || tileStringThird [0] == tileStringGreen [0] || tileStringThird [0] == tileStringRed [0] || tileStringThird [0] == tileStringWhite [0]) && tileStringThird.length() == lengthStringFour.length()))) || ((((tileStringFirst [0] == tileStringPinzu [0] || tileStringFirst [0] == tileStringSouzu [0] || tileStringFirst [0] == tileStringManzu [0]) && tileStringFirst.length() == lengthStringFive.length()) || ((tileStringFirst [0] == tileStringEast [0] || tileStringFirst [0] == tileStringSouth [0] || tileStringFirst [0] == tileStringWest [0] || tileStringFirst [0] == tileStringNorth [0] || tileStringFirst [0] == tileStringGreen [0] || tileStringFirst [0] == tileStringRed [0] || tileStringFirst [0] == tileStringWhite [0]) && tileStringFirst.length() == lengthStringFour.length())) && (((tileStringSecond [0] == tileStringPinzu [0] || tileStringSecond [0] == tileStringSouzu [0] || tileStringSecond [0] == tileStringManzu [0]) && tileStringSecond.length() == lengthStringFive.length()) || ((tileStringSecond [0] == tileStringEast [0] || tileStringSecond [0] == tileStringSouth [0] || tileStringSecond [0] == tileStringWest [0] || tileStringSecond [0] == tileStringNorth [0] || tileStringSecond [0] == tileStringGreen [0] || tileStringSecond [0] == tileStringRed [0] || tileStringSecond [0] == tileStringWhite [0]) && tileStringSecond.length() == lengthStringFour.length())) && (((tileStringFourth [0] == tileStringPinzu [0] || tileStringFourth [0] == tileStringSouzu [0] || tileStringFourth [0] == tileStringManzu [0]) && tileStringFourth.length() == lengthStringFive.length()) || ((tileStringFourth [0] == tileStringEast [0] || tileStringFourth [0] == tileStringSouth [0] || tileStringFourth [0] == tileStringWest [0] || tileStringFourth [0] == tileStringNorth [0] || tileStringFourth [0] == tileStringGreen [0] || tileStringFourth [0] == tileStringRed [0] || tileStringFourth [0] == tileStringWhite [0]) && tileStringFourth.length() == lengthStringFour.length()))) || ((((tileStringFirst [0] == tileStringPinzu [0] || tileStringFirst [0] == tileStringSouzu [0] || tileStringFirst [0] == tileStringManzu [0]) && tileStringFirst.length() == lengthStringFive.length()) || ((tileStringFirst [0] == tileStringEast [0] || tileStringFirst [0] == tileStringSouth [0] || tileStringFirst [0] == tileStringWest [0] || tileStringFirst [0] == tileStringNorth [0] || tileStringFirst [0] == tileStringGreen [0] || tileStringFirst [0] == tileStringRed [0] || tileStringFirst [0] == tileStringWhite [0]) && tileStringFirst.length() == lengthStringFour.length())) && (((tileStringThird [0] == tileStringPinzu [0] || tileStringThird [0] == tileStringSouzu [0] || tileStringThird [0] == tileStringManzu [0]) && tileStringThird.length() == lengthStringFive.length()) || ((tileStringThird [0] == tileStringEast [0] || tileStringThird [0] == tileStringSouth [0] || tileStringThird [0] == tileStringWest [0] || tileStringThird [0] == tileStringNorth [0] || tileStringThird [0] == tileStringGreen [0] || tileStringThird [0] == tileStringRed [0] || tileStringThird [0] == tileStringWhite [0]) && tileStringThird.length() == lengthStringFour.length())) && (((tileStringFourth [0] == tileStringPinzu [0] || tileStringFourth [0] == tileStringSouzu [0] || tileStringFourth [0] == tileStringManzu [0]) && tileStringFourth.length() == lengthStringFive.length()) || ((tileStringFourth [0] == tileStringEast [0] || tileStringFourth [0] == tileStringSouth [0] || tileStringFourth [0] == tileStringWest [0] || tileStringFourth [0] == tileStringNorth [0] || tileStringFourth [0] == tileStringGreen [0] || tileStringFourth [0] == tileStringRed [0] || tileStringFourth [0] == tileStringWhite [0]) && tileStringFourth.length() == lengthStringFour.length()))) || ((((tileStringSecond [0] == tileStringPinzu [0] || tileStringSecond [0] == tileStringSouzu [0] || tileStringSecond [0] == tileStringManzu [0]) && tileStringSecond.length() == lengthStringFive.length()) || ((tileStringSecond [0] == tileStringEast [0] || tileStringSecond [0] == tileStringSouth [0] || tileStringSecond [0] == tileStringWest [0] || tileStringSecond [0] == tileStringNorth [0] || tileStringSecond [0] == tileStringGreen [0] || tileStringSecond [0] == tileStringRed [0] || tileStringSecond [0] == tileStringWhite [0]) && tileStringSecond.length() == lengthStringFour.length())) && (((tileStringThird [0] == tileStringPinzu [0] || tileStringThird [0] == tileStringSouzu [0] || tileStringThird [0] == tileStringManzu [0]) && tileStringThird.length() == lengthStringFive.length()) || ((tileStringThird [0] == tileStringEast [0] || tileStringThird [0] == tileStringSouth [0] || tileStringThird [0] == tileStringWest [0] || tileStringThird [0] == tileStringNorth [0] || tileStringThird [0] == tileStringGreen [0] || tileStringThird [0] == tileStringRed [0] || tileStringThird [0] == tileStringWhite [0]) && tileStringThird.length() == lengthStringFour.length())) && (((tileStringFourth [0] == tileStringPinzu [0] || tileStringFourth [0] == tileStringSouzu [0] || tileStringFourth [0] == tileStringManzu [0]) && tileStringFourth.length() == lengthStringFive.length()) || ((tileStringFourth [0] == tileStringEast [0] || tileStringFourth [0] == tileStringSouth [0] || tileStringFourth [0] == tileStringWest [0] || tileStringFourth [0] == tileStringNorth [0] || tileStringFourth [0] == tileStringGreen [0] || tileStringFourth [0] == tileStringRed [0] || tileStringFourth [0] == tileStringWhite [0]) && tileStringFourth.length() == lengthStringFour.length())))))
         {
             sankantsu = 1;
-            han = han + 2;
+            yakuHan = yakuHan + 2;
         }
 
         if (!chitoitsu && ((tileStringPair [0] == tileStringPinzu [0] || tileStringPair [0] ==  tileStringSouzu [0] || tileStringPair [0] == tileStringManzu [0]) && (tileStringPair [1] != tileStringOne [0] && tileStringPair [1] != tileStringNine [0])) && (tileStringFirst [0] == tileStringPinzu [0] || tileStringFirst [0] == tileStringSouzu [0] || tileStringFirst [0] == tileStringManzu [0]) && (tileStringFirst [1] != tileStringOne [0] && tileStringFirst [3] != tileStringNine [0]) && (tileStringSecond [0] == tileStringPinzu [0] || tileStringSecond [0] ==  tileStringSouzu [0] || tileStringSecond [0] == tileStringManzu [0]) && (tileStringSecond [1] != tileStringOne [0] && tileStringSecond [3] != tileStringNine [0]) && (tileStringThird [0] == tileStringPinzu [0] || tileStringThird [0] == tileStringSouzu [0] || tileStringThird [0] == tileStringManzu [0]) && (tileStringThird [1] != tileStringOne [0] && tileStringThird [3] != tileStringNine [0]) && (tileStringFourth [0] == tileStringPinzu [0] || tileStringFourth [0] == tileStringSouzu [0] || tileStringFourth [0] == tileStringManzu [0]) && (tileStringFourth [1] != tileStringOne [0] && tileStringFourth [3] != tileStringNine [0]))
         {
             tanyao = 1;
-            han ++;
+            yakuHan ++;
         }
 
         if (chitoitsu && ((tileStringPairOne [0] == tileStringPinzu [0] || tileStringPairOne [0] == tileStringSouzu [0] || tileStringPairOne [0] == tileStringManzu [0]) && (tileStringPairOne [1] != tileStringOne [0] && tileStringPairOne [1] != tileStringNine [0])) && ((tileStringPairTwo [0] == tileStringPinzu [0] || tileStringPairTwo [0] == tileStringSouzu [0] || tileStringPairTwo [0] == tileStringManzu [0]) && (tileStringPairTwo [1] != tileStringOne [0] && tileStringPairTwo [1] != tileStringNine [0])) && ((tileStringPairThree [0] == tileStringPinzu [0] || tileStringPairThree [0] == tileStringSouzu [0] || tileStringPairThree [0] == tileStringManzu [0]) && (tileStringPairThree [1] != tileStringOne [0] && tileStringPairThree [1] != tileStringNine [0])) && ((tileStringPairFour [0] == tileStringPinzu [0] || tileStringPairFour [0] == tileStringSouzu [0] || tileStringPairFour [0] == tileStringManzu [0]) && (tileStringPairFour [1] != tileStringOne [0] && tileStringPairFour [1] != tileStringNine [0])) && ((tileStringPairFive [0] == tileStringPinzu [0] || tileStringPairFive [0] == tileStringSouzu [0] || tileStringPairFive [0] == tileStringManzu [0]) && (tileStringPairFive [1] != tileStringOne [0] && tileStringPairFive [1] != tileStringNine [0])) && ((tileStringPairSix [0] == tileStringPinzu [0] || tileStringPairSix [0] == tileStringSouzu [0] || tileStringPairSix [0] == tileStringManzu [0]) && (tileStringPairSix [1] != tileStringOne [0] && tileStringPairSix [1] != tileStringNine [0])) && ((tileStringPairSeven [0] == tileStringPinzu [0] || tileStringPairSeven [0] == tileStringSouzu [0] || tileStringPairSeven [0] == tileStringManzu [0]) && (tileStringPairSeven [1] != tileStringOne [0] && tileStringPairSeven [1] != tileStringNine [0])))
         {
             tanyao = 1;
-            han ++;
+            yakuHan ++;
         }
 
         //yakuhai set one
@@ -1055,43 +1056,43 @@ int main()
             chanta = 0;
         }
 
-        han = han + yakuhaiTon + yakuhaiNan + yakuhaiSha + yakuhaiPei + yakuhaiHatsu + yakuhaiChun + yakuhaiHaku;
+        yakuHan = yakuHan + yakuhaiTon + yakuhaiNan + yakuhaiSha + yakuhaiPei + yakuhaiHatsu + yakuhaiChun + yakuhaiHaku;
 
         if (chanta)
         {
             if (closed)
             {
-                han = han + 2;
+                yakuHan = yakuHan + 2;
             }
 
             else
             {
-                han ++;
+                yakuHan ++;
             }
         }
 
         if (honroutou)
         {
-            han = han + 2;
+            yakuHan = yakuHan + 2;
         }
 
         if (junchanta)
         {
             if (closed)
             {
-                han = han + 3;
+                yakuHan = yakuHan + 3;
             }
 
             else
             {
-                han = han + 2;
+                yakuHan = yakuHan + 2;
             }
         }
 
         if (!chitoitsu && (tileStringThird [0] == tileStringGreen [0] || tileStringThird [0] == tileStringRed [0] || tileStringThird [0] == tileStringWhite [0]) && (tileStringFourth [0] == tileStringGreen [0] || tileStringFourth [0] == tileStringRed [0] || tileStringFourth [0] == tileStringWhite [0]) && (tileStringPair [0] == tileStringGreen [0] || tileStringPair [0] == tileStringRed [0] || tileStringPair [0] == tileStringWhite [0]))
         {
             shousangen = 1;
-            han = han + 2;
+            yakuHan = yakuHan + 2;
         }
 
         if (!chitoitsu && (tileStringFirst [0] == tileStringPinzu [0] || tileStringFirst [0] == tileStringEast [0] || tileStringFirst [0] == tileStringSouth [0] || tileStringFirst [0] == tileStringWest [0] || tileStringFirst [0] == tileStringNorth [0] || tileStringFirst [0] == tileStringGreen [0] || tileStringFirst [0] == tileStringRed [0] || tileStringFirst [0] == tileStringWhite [0]) && (tileStringSecond [0] == tileStringPinzu [0] || tileStringSecond [0] == tileStringEast [0] || tileStringSecond [0] == tileStringSouth [0] || tileStringSecond [0] == tileStringWest [0] || tileStringSecond [0] == tileStringNorth [0] || tileStringSecond [0] == tileStringGreen [0] || tileStringSecond [0] == tileStringRed [0] || tileStringSecond [0] == tileStringWhite [0]) && (tileStringThird [0] == tileStringPinzu [0] || tileStringThird [0] == tileStringEast [0] || tileStringThird [0] == tileStringSouth [0] || tileStringThird [0] == tileStringWest [0] || tileStringThird [0] == tileStringNorth [0] || tileStringThird [0] == tileStringGreen [0] || tileStringThird [0] == tileStringRed [0] || tileStringThird [0] == tileStringWhite [0]) && (tileStringFourth [0] == tileStringPinzu [0] || tileStringFourth [0] == tileStringEast [0] || tileStringFourth [0] == tileStringSouth [0] || tileStringFourth [0] == tileStringWest [0] || tileStringFourth [0] == tileStringNorth [0] || tileStringFourth [0] == tileStringGreen [0] || tileStringFourth [0] == tileStringRed [0] || tileStringFourth [0] == tileStringWhite [0]) && (tileStringPair [0] == tileStringPinzu [0] || tileStringPair [0] == tileStringEast [0] || tileStringPair [0] == tileStringSouth [0] || tileStringPair [0] == tileStringWest [0] || tileStringPair [0] == tileStringNorth [0] || tileStringPair [0] == tileStringGreen [0] || tileStringPair [0] == tileStringRed [0] || tileStringPair [0] == tileStringWhite [0]))
@@ -1164,12 +1165,12 @@ int main()
         {
             if (closed)
             {
-                han = han + 3;
+                yakuHan = yakuHan + 3;
             }
 
             else
             {
-                han = han + 2;
+                yakuHan = yakuHan + 2;
             }
         }
 
@@ -1177,12 +1178,12 @@ int main()
         {
             if (closed)
             {
-                han = han + 6;
+                yakuHan = yakuHan + 6;
             }
 
             else
             {
-                han = han + 5;
+                yakuHan = yakuHan + 5;
             }
         }
 
@@ -1190,7 +1191,7 @@ int main()
 
     if (yakumanCounter < 1)
     {
-        han = han + dora;
+        han = yakuHan + dora;
         if (han < 5)
         {
             if (chitoitsu)
@@ -1925,15 +1926,15 @@ int main()
 
         cout << "\n";
 
-        if (han == 0)
+        if (yakuHan == 0)
         {
             chombo = 1;
-            cout << han;
-            cout << " Han\n";
+            cout << "Invalid hand: no yaku!" << endl;
             cout << "Chombo Penalty: ";
             if (dealer)
             {
                 cout << "4000 All\n";
+
             }
             if (!dealer)
             {
