@@ -120,7 +120,7 @@ namespace checkError
                     }
                 }
                 
-                if (!isStraight != !isTriplet)           // XOR just in case something weird happens
+                if (!isStraight && !isTriplet)           
                 {
                     return 1;
                 }
