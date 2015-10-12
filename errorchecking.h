@@ -1,7 +1,7 @@
 #ifndef ERRORCHECKING_H_INCLUDED
-#define ERRORCHECKING_H_INCLUDED
-#include <cstring>
-
+#define ERRORCHECKING_H_INCLUDEDs
+#include <stdlib.h>
+#include <iostream>
 using namespace std;
 
 namespace checkError
@@ -45,7 +45,7 @@ namespace checkError
         int meldNumOne = 0;                              // Prevents melds like P124 and B994 from passing
         int meldNumTwo = 0;
         int meldNumThree = 0;
-        
+
         if (checkString.length() < 3)
         {
             setLengthError = 1;                          // Melds MUST be comprised of at least three tiles
@@ -101,26 +101,26 @@ namespace checkError
                 {
                     return 1;                            // Makes sure ESWN/RHG are not present
                 }
-                
+
                 if (checkString [1] != checkString [2] || checkString [1] != checkString [3] || checkString [2] != checkString [3])
                 {
                     isTriplet = 0;                       // If the three characters following suit indicator are not the same, the meld is not a triplet
                 }
-                
+
                 if (checkString [1] != tileStringZero [0] && checkString [1] != tileStringEight [0] && checkString [1] != tileStringNine [0])
                 // No sense in checking for straight if the first tile isn't 1-7, quick check for invalid straight
                 {
-                    meldNumOne = atoi (checkString [1]);             // There has to be a better way of doing this.
-                    meldNumTwo = atoi (checkString [2]);             // Convert tile number to int for comparison
-                    meldNumThree = atoi (checkString [3]);           
-                    
+                    meldNumOne = (checkString [1] - '0');             // There has to be a better way of doing this.
+                    meldNumTwo = (checkString [2]) - '0';             // Convert tile number to int for comparison
+                    meldNumThree = (checkString [3]) - '0';
+
                     if (meldNumThree == meldNumTwo + 1 && meldNumTwo == meldNumOne + 1)
                     {
                         isStraight = 1;                  // Checks if tiles numbers are consecutive
                     }
                 }
-                
-                if (!isStraight && !isTriplet)           
+
+                if (!isStraight && !isTriplet)
                 {
                     return 1;
                 }
@@ -142,7 +142,7 @@ namespace checkError
             {
                 return 1;                                // Valid kans have four of the same tile
             }
-            
+
             if (checkString [1] == tileStringEast [0] || checkString [1] == tileStringSouth [0] || checkString [1] == tileStringWest [0] || checkString [1] == tileStringNorth [0] || checkString [1] ==tileStringGreen [0] || checkString [1] == tileStringRed [0] || checkString [1] == tileStringWhite [0] || checkString [2] == tileStringEast [0] || checkString [2] == tileStringSouth [0] || checkString [2] == tileStringWest [0] || checkString [2] == tileStringNorth [0] || checkString [2] ==tileStringGreen [0] || checkString [2] == tileStringRed [0] || checkString [2] == tileStringWhite [0] || checkString [3] == tileStringEast [0] || checkString [3] == tileStringSouth [0] || checkString [3] == tileStringWest [0] || checkString [3] == tileStringNorth [0] || checkString [3] ==tileStringGreen [0] || checkString [3] == tileStringRed [0] || checkString [3] == tileStringWhite [0] || checkString [4] == tileStringEast [0] || checkString [4] == tileStringSouth [0] || checkString [4] == tileStringWest [0] || checkString [4] == tileStringNorth [0] || checkString [4] ==tileStringGreen [0] || checkString [4] == tileStringRed [0] || checkString [4] == tileStringWhite [0])
             {
                 return 1;                                // Can't have five honor tiles
