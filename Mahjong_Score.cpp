@@ -272,15 +272,22 @@ int main()
                 cin >> tileStringFirst;
             }
 
-            cout << "Was it FULLY closed? (y/n)\n";
-            cin >> setOneClosedString;
-            setOneClosed = checkError::convertToInt(setOneClosedString);
-            while (checkError::inputChecking(setOneClosed) == 1)
-            {
-                cout << invalidInput;
+            if (!(tsumo && closed) && (tileStringFirst [1] == tileStringFirst [2])) {
+                cout << "Was it FULLY closed? (y/n)\n";
                 cin >> setOneClosedString;
                 setOneClosed = checkError::convertToInt(setOneClosedString);
+                while (checkError::inputChecking(setOneClosed) == 1)
+                {
+                    cout << invalidInput;
+                    cin >> setOneClosedString;
+                    setOneClosed = checkError::convertToInt(setOneClosedString);
+                }
             }
+            else {
+                setOneClosed = 1;
+            }
+
+
 
             cout << "What was the second meld?\n";
             cin >> tileStringSecond;
@@ -290,17 +297,20 @@ int main()
                 std::cout << invalidMeld;
                 cin >> tileStringSecond;
             }
-
-            cout << "Was it FULLY closed? (y/n)\n";
-            cin >> setTwoClosedString;
-            setTwoClosed = checkError::convertToInt(setTwoClosedString);
-            while (checkError::inputChecking(setTwoClosed) == 1)
-            {
-                cout << invalidInput;
+            if (!(tsumo && closed) && (tileStringSecond [1] == tileStringSecond [2])) {
+                cout << "Was it FULLY closed? (y/n)\n";
                 cin >> setTwoClosedString;
                 setTwoClosed = checkError::convertToInt(setTwoClosedString);
+                while (checkError::inputChecking(setTwoClosed) == 1)
+                {
+                    cout << invalidInput;
+                    cin >> setTwoClosedString;
+                    setOneClosed = checkError::convertToInt(setOneClosedString);
+                }
             }
-
+            else {
+                setTwoClosed = 1;
+            }
             cout << "What was the third meld?\n";
             cin >> tileStringThird;
 
@@ -310,15 +320,23 @@ int main()
                 cin >> tileStringThird;
             }
 
-            cout << "Was it FULLY closed? (y/n)\n";
-            cin >> setThreeClosedString;
-            setThreeClosed = checkError::convertToInt(setThreeClosedString);
-            while (checkError::inputChecking(setThreeClosed) == 1)
-            {
-                cout << invalidInput;
+
+            if (!(tsumo && closed) && (tileStringThird [1] == tileStringThird [2])) {
+                cout << "Was it FULLY closed? (y/n)\n";
                 cin >> setThreeClosedString;
                 setThreeClosed = checkError::convertToInt(setThreeClosedString);
+                while (checkError::inputChecking(setThreeClosed) == 1)
+                {
+                    cout << invalidInput;
+                    cin >> setThreeClosedString;
+                    setThreeClosed = checkError::convertToInt(setThreeClosedString);
+                }
             }
+            else {
+                setThreeClosed = 1;
+            }
+
+
 
             cout << "What was the fourth meld?\n";
             cin >> tileStringFourth;
@@ -328,15 +346,19 @@ int main()
                 std::cout << invalidMeld;
                 cin >> tileStringFourth;
             }
-
-            cout << "Was it FULLY closed? (y/n)\n";
-            cin >> setFourClosedString;
-            setFourClosed = checkError::convertToInt(setFourClosedString);
-            while (checkError::inputChecking(setFourClosed) == 1)
-            {
-                cout << invalidInput;
+            if (!(tsumo && closed) && (tileStringFourth [1] == tileStringFourth [2])) {
+                cout << "Was it FULLY closed? (y/n)\n";
                 cin >> setFourClosedString;
                 setFourClosed = checkError::convertToInt(setFourClosedString);
+                while (checkError::inputChecking(setFourClosed) == 1)
+                {
+                    cout << invalidInput;
+                    cin >> setFourClosedString;
+                    setFourClosed = checkError::convertToInt(setFourClosedString);
+                }
+            }
+            else {
+                setFourClosed = 1;
             }
 
             cout << "What was the pair?\n";
