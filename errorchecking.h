@@ -51,12 +51,12 @@ namespace checkError
             setLengthError = 1;                          // Melds MUST be comprised of at least three tiles
         }
 
-        if (checkString.length() == 3 && ((checkString [0] != tileStringEast [0]) && (checkString [0] != tileStringSouth [0]) && (checkString [0] != tileStringWest [0]) && (checkString [0] != tileStringNorth[0]) && (checkString [0] != tileStringRed [0]) && (checkString [0] != tileStringGreen [0]) && (checkString [0] != tileStringWhite [0])))
+        if (checkString.length() == 3 && ((checkString.at(0) != tileStringEast.at(0)) && (checkString.at(0) != tileStringSouth.at(0)) && (checkString.at(0) != tileStringWest.at(0)) && (checkString.at(0) != tileStringNorth.at(0)) && (checkString.at(0) != tileStringRed.at(0)) && (checkString.at(0) != tileStringGreen.at(0)) && (checkString.at(0) != tileStringWhite.at(0))))
         {
             setLengthError = 1;                          // If the string length is exactly 3, the meld must be a pon of honors; if it were anything else the string length would be 4 since suit must be stated
         }
 
-        if (checkString.length() > 4 && ((checkString [0] != tileStringManzu [0]) && (checkString [0] != tileStringPinzu [0]) && (checkString [0] != tileStringSouzu [0])))
+        if (checkString.length() > 4 && ((checkString.at(0) != tileStringManzu.at(0)) && (checkString.at(0) != tileStringPinzu.at(0)) && (checkString.at(0) != tileStringSouzu.at(0))))
         {
             setLengthError = 1;                          // Any strings with length 5 indicate kans of normal tiles; there are only four of each tile, so having five of an honor tile is impossible
         }
@@ -73,7 +73,7 @@ namespace checkError
 
         while (setPlace < checkString.length())
             {
-                if ((checkString [setPlace] != tileStringEast [0]) && (checkString [setPlace] != tileStringSouth [0]) && (checkString [setPlace] != tileStringWest [0]) && (checkString [setPlace] != tileStringNorth [0]) && (checkString [setPlace] != tileStringRed [0]) && (checkString [setPlace] != tileStringWhite [0]) && (checkString [setPlace] != tileStringGreen [0]) && (checkString [setPlace] != tileStringManzu [0]) && (checkString [setPlace] != tileStringPinzu [0]) && (checkString [setPlace] != tileStringSouzu [0]) && (checkString [setPlace] != tileStringOne [0]) && (checkString [setPlace] != tileStringTwo [0]) && (checkString [setPlace] != tileStringThree [0]) && (checkString [setPlace] != tileStringFour [0]) && (checkString [setPlace] != tileStringFive [0]) && (checkString [setPlace] != tileStringSix [0]) && (checkString [setPlace] != tileStringSeven [0]) && (checkString [setPlace] != tileStringEight [0]) && (checkString [setPlace] != tileStringNine [0]))
+                if ((checkString.at(setPlace) != tileStringEast.at(0)) && (checkString.at(setPlace) != tileStringSouth.at(0)) && (checkString.at(setPlace) != tileStringWest.at(0)) && (checkString.at(setPlace) != tileStringNorth.at(0)) && (checkString.at(setPlace) != tileStringRed.at(0)) && (checkString.at(setPlace) != tileStringWhite.at(0)) && (checkString.at(setPlace) != tileStringGreen.at(0)) && (checkString.at(setPlace) != tileStringManzu.at(0)) && (checkString.at(setPlace) != tileStringPinzu.at(0)) && (checkString.at(setPlace) != tileStringSouzu.at(0)) && (checkString.at(setPlace) != tileStringOne.at(0)) && (checkString.at(setPlace) != tileStringTwo.at(0)) && (checkString.at(setPlace) != tileStringThree.at(0)) && (checkString.at(setPlace) != tileStringFour.at(0)) && (checkString.at(setPlace) != tileStringFive.at(0)) && (checkString.at(setPlace) != tileStringSix.at(0)) && (checkString.at(setPlace) != tileStringSeven.at(0)) && (checkString.at(setPlace) != tileStringEight.at(0)) && (checkString.at(setPlace) != tileStringNine.at(0)))
                     {
                         return 1;                        // If the string is not comprised of defined strings, the meld is invalid
                     }
@@ -82,37 +82,37 @@ namespace checkError
 
         if (checkString.length() == lengthStringFour.length())
         {
-            if (checkString [0] == tileStringEast [0] || checkString [0] == tileStringSouth [0] || checkString [0] == tileStringWest [0] || checkString [0] == tileStringNorth [0] || checkString [0] ==tileStringGreen [0] || checkString [0] == tileStringRed [0] || checkString [0] == tileStringWhite [0])
+            if (checkString.at(0) == tileStringEast.at(0) || checkString.at(0) == tileStringSouth.at(0) || checkString.at(0) == tileStringWest.at(0) || checkString.at(0) == tileStringNorth.at(0) || checkString.at(0) ==tileStringGreen.at(0) || checkString.at(0) == tileStringRed.at(0) || checkString.at(0) == tileStringWhite.at(0))
             {
-                if (checkString [0] != checkString [1] || checkString [0] != checkString [2] || checkString [0] != checkString [3])
+                if (checkString.at(0) != checkString.at(1) || checkString.at(0) != checkString.at(2) || checkString.at(0) != checkString.at(3))
                 {
                     return 1;                            // Checks for invalid honor kans
                 }
             }
 
-            if (checkString [0] == tileStringPinzu [0] || checkString [0] == tileStringSouzu [0] || checkString [0] == tileStringManzu [0])
+            if (checkString.at(0) == tileStringPinzu.at(0) || checkString.at(0) == tileStringSouzu.at(0) || checkString.at(0) == tileStringManzu.at(0))
             {
-                if (checkString [0] == checkString [1] || checkString [0] == checkString [2] || checkString [0] == checkString [3])
+                if (checkString.at(0) == checkString.at(1) || checkString.at(0) == checkString.at(2) || checkString.at(0) == checkString.at(3))
                 {
                     return 1;                            // Makes sure PBM are only at beginning of meld
                 }
 
-                if (checkString [1] == tileStringEast [0] || checkString [1] == tileStringSouth [0] || checkString [1] == tileStringWest [0] || checkString [1] == tileStringNorth [0] || checkString [1] == tileStringGreen [0] || checkString [1] == tileStringRed [0] || checkString [1] == tileStringWhite [0] || checkString [2] == tileStringEast [0] || checkString [2] == tileStringSouth [0] || checkString [2] == tileStringWest [0] || checkString [2] == tileStringNorth [0] || checkString [2] == tileStringGreen [0] || checkString [2] == tileStringRed [0] || checkString [2] == tileStringWhite [0] || checkString [3] == tileStringEast [0] || checkString [3] == tileStringSouth [0] || checkString [3] == tileStringWest [0] || checkString [3] == tileStringNorth [0] || checkString [3] == tileStringGreen [0] || checkString [3] == tileStringRed [0] || checkString [3] == tileStringWhite [0])
+                if (checkString.at(1) == tileStringEast.at(0) || checkString.at(1) == tileStringSouth.at(0) || checkString.at(1) == tileStringWest.at(0) || checkString.at(1) == tileStringNorth.at(0) || checkString.at(1) == tileStringGreen.at(0) || checkString.at(1) == tileStringRed.at(0) || checkString.at(1) == tileStringWhite.at(0) || checkString.at(2) == tileStringEast.at(0) || checkString.at(2) == tileStringSouth.at(0) || checkString.at(2) == tileStringWest.at(0) || checkString.at(2) == tileStringNorth.at(0) || checkString.at(2) == tileStringGreen.at(0) || checkString.at(2) == tileStringRed.at(0) || checkString.at(2) == tileStringWhite.at(0) || checkString.at(3) == tileStringEast.at(0) || checkString.at(3) == tileStringSouth.at(0) || checkString.at(3) == tileStringWest.at(0) || checkString.at(3) == tileStringNorth.at(0) || checkString.at(3) == tileStringGreen.at(0) || checkString.at(3) == tileStringRed.at(0) || checkString.at(3) == tileStringWhite.at(0))
                 {
                     return 1;                            // Makes sure ESWN/RHG are not present
                 }
 
-                if (checkString [1] != checkString [2] || checkString [1] != checkString [3] || checkString [2] != checkString [3])
+                if (checkString.at(1) != checkString.at(2) || checkString.at(1) != checkString.at(3) || checkString.at(2) != checkString.at(3))
                 {
                     isTriplet = 0;                       // If the three characters following suit indicator are not the same, the meld is not a triplet
                 }
 
-                if (checkString [1] != tileStringZero [0] && checkString [1] != tileStringEight [0] && checkString [1] != tileStringNine [0])
+                if (checkString.at(1) != tileStringZero.at(0) && checkString.at(1) != tileStringEight.at(0) && checkString.at(1) != tileStringNine.at(0))
                 // No sense in checking for straight if the first tile isn't 1-7, quick check for invalid straight
                 {
-                    meldNumOne = (checkString [1] - '0');             // There has to be a better way of doing this.
-                    meldNumTwo = (checkString [2]) - '0';             // Convert tile number to int for comparison
-                    meldNumThree = (checkString [3]) - '0';
+                    meldNumOne = (checkString.at(1) - '0');             // There has to be a better way of doing this.
+                    meldNumTwo = (checkString.at(2)) - '0';             // Convert tile number to int for comparison
+                    meldNumThree = (checkString.at(3)) - '0';
 
                     if (meldNumThree == meldNumTwo + 1 && meldNumTwo == meldNumOne + 1)
                     {
@@ -126,24 +126,24 @@ namespace checkError
                 }
             }
 
-            if (checkString [0] != tileStringEast [0] && checkString [0] != tileStringSouth [0] && checkString [0] != tileStringWest [0] && checkString [0] != tileStringNorth [0] && checkString [0] !=tileStringGreen [0] && checkString [0] != tileStringRed [0] && checkString [0] != tileStringWhite [0] && checkString [0] != tileStringPinzu [0] && checkString [0] != tileStringSouzu [0] && checkString [0] != tileStringManzu [0])
+            if (checkString.at(0) != tileStringEast.at(0) && checkString.at(0) != tileStringSouth.at(0) && checkString.at(0) != tileStringWest.at(0) && checkString.at(0) != tileStringNorth.at(0) && checkString.at(0) !=tileStringGreen.at(0) && checkString.at(0) != tileStringRed.at(0) && checkString.at(0) != tileStringWhite.at(0) && checkString.at(0) != tileStringPinzu.at(0) && checkString.at(0) != tileStringSouzu.at(0) && checkString.at(0) != tileStringManzu.at(0))
             {
                 return 1;                                // The first character in a meld string must be an honor or indicate suit
             }
         }
         if (checkString.length() == lengthStringFive.length())      // Must be non-honor kan
         {
-            if (checkString [0] == checkString [1] || checkString [0] == checkString [2] || checkString [0] == checkString [3] || checkString [0] == checkString [4])
+            if (checkString.at(0) == checkString.at(1) || checkString.at(0) == checkString.at(2) || checkString.at(0) == checkString.at(3) || checkString.at(0) == checkString.at(4))
             {
                 return 1;                                // First character must indicate suit, so it can't be the same as any other character in the string - can't have five honor tiles
             }
 
-            if (checkString [1] != checkString [2] || checkString [1] != checkString [3] || checkString [1] != checkString [4])
+            if (checkString.at(1) != checkString.at(2) || checkString.at(1) != checkString.at(3) || checkString.at(1) != checkString.at(4))
             {
                 return 1;                                // Valid kans have four of the same tile
             }
 
-            if (checkString [1] == tileStringEast [0] || checkString [1] == tileStringSouth [0] || checkString [1] == tileStringWest [0] || checkString [1] == tileStringNorth [0] || checkString [1] ==tileStringGreen [0] || checkString [1] == tileStringRed [0] || checkString [1] == tileStringWhite [0] || checkString [2] == tileStringEast [0] || checkString [2] == tileStringSouth [0] || checkString [2] == tileStringWest [0] || checkString [2] == tileStringNorth [0] || checkString [2] ==tileStringGreen [0] || checkString [2] == tileStringRed [0] || checkString [2] == tileStringWhite [0] || checkString [3] == tileStringEast [0] || checkString [3] == tileStringSouth [0] || checkString [3] == tileStringWest [0] || checkString [3] == tileStringNorth [0] || checkString [3] ==tileStringGreen [0] || checkString [3] == tileStringRed [0] || checkString [3] == tileStringWhite [0] || checkString [4] == tileStringEast [0] || checkString [4] == tileStringSouth [0] || checkString [4] == tileStringWest [0] || checkString [4] == tileStringNorth [0] || checkString [4] ==tileStringGreen [0] || checkString [4] == tileStringRed [0] || checkString [4] == tileStringWhite [0])
+            if (checkString.at(1) == tileStringEast.at(0) || checkString.at(1) == tileStringSouth.at(0) || checkString.at(1) == tileStringWest.at(0) || checkString.at(1) == tileStringNorth.at(0) || checkString.at(1) ==tileStringGreen.at(0) || checkString.at(1) == tileStringRed.at(0) || checkString.at(1) == tileStringWhite.at(0) || checkString.at(2) == tileStringEast.at(0) || checkString.at(2) == tileStringSouth.at(0) || checkString.at(2) == tileStringWest.at(0) || checkString.at(2) == tileStringNorth.at(0) || checkString.at(2) ==tileStringGreen.at(0) || checkString.at(2) == tileStringRed.at(0) || checkString.at(2) == tileStringWhite.at(0) || checkString.at(3) == tileStringEast.at(0) || checkString.at(3) == tileStringSouth.at(0) || checkString.at(3) == tileStringWest.at(0) || checkString.at(3) == tileStringNorth.at(0) || checkString.at(3) ==tileStringGreen.at(0) || checkString.at(3) == tileStringRed.at(0) || checkString.at(3) == tileStringWhite.at(0) || checkString.at(4) == tileStringEast.at(0) || checkString.at(4) == tileStringSouth.at(0) || checkString.at(4) == tileStringWest.at(0) || checkString.at(4) == tileStringNorth.at(0) || checkString.at(4) ==tileStringGreen.at(0) || checkString.at(4) == tileStringRed.at(0) || checkString.at(4) == tileStringWhite.at(0))
             {
                 return 1;                                // Can't have five honor tiles
             }
@@ -151,12 +151,12 @@ namespace checkError
 
         if (checkString.length() == lengthStringThree.length())     // Must be honor pon
         {
-            if (checkString [0] != tileStringEast [0] && checkString [0] != tileStringSouth [0] && checkString [0] != tileStringWest [0] && checkString [0] != tileStringNorth [0] && checkString [0] !=tileStringGreen [0] && checkString [0] != tileStringRed [0] && checkString [0] != tileStringWhite [0])
+            if (checkString.at(0) != tileStringEast.at(0) && checkString.at(0) != tileStringSouth.at(0) && checkString.at(0) != tileStringWest.at(0) && checkString.at(0) != tileStringNorth.at(0) && checkString.at(0) !=tileStringGreen.at(0) && checkString.at(0) != tileStringRed.at(0) && checkString.at(0) != tileStringWhite.at(0))
             {
                 return 1;                                // Checking to make sure meld begins with honor tile
             }
 
-            if (checkString [0] != checkString [1] || checkString [0] != checkString [2])
+            if (checkString.at(0) != checkString.at(1) || checkString.at(0) != checkString.at(2))
             {
                 return 1;                                // Comparing known honor tile to rest of meld
             }
@@ -166,7 +166,7 @@ namespace checkError
 
     int machiChecking (string checkMachi)
     {
-        if (checkMachi.length() != lengthStringOne.length() || ((checkMachi [0] != tileStringZero [0]) && (checkMachi [0] != tileStringOne [0]) && (checkMachi [0] != tileStringTwo [0]) && (checkMachi [0] != tileStringThree [0])))
+        if (checkMachi.length() != lengthStringOne.length() || ((checkMachi.at(0) != tileStringZero.at(0)) && (checkMachi.at(0) != tileStringOne.at(0)) && (checkMachi.at(0) != tileStringTwo.at(0)) && (checkMachi.at(0) != tileStringThree.at(0))))
         {
             return 1;
         }
@@ -196,17 +196,17 @@ namespace checkError
             return -1;
         }
 
-        if (convertString [0] == inputStringYes [0])
+        if (convertString.at(0) == inputStringYes.at(0))
         {
             return 1;
         }
 
-        if (convertString [0] == inputStringNo [0])
+        if (convertString.at(0) == inputStringNo.at(0))
         {
             return 0;
         }
 
-        if (convertString [0] != inputStringYes [0] && convertString [0] != inputStringNo [0])
+        if (convertString.at(0) != inputStringYes.at(0) && convertString.at(0) != inputStringNo.at(0))
         {
             return -1;
         }
