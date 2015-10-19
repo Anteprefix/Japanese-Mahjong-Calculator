@@ -1451,7 +1451,7 @@ int main()
             }
         }
 
-        if (!dealer)
+        else
         {
             if (tsumo)
             {
@@ -1622,7 +1622,7 @@ int main()
             }
         }
 
-        if (!dealer)
+        else
         {
             if (tsumo)
             {
@@ -1937,7 +1937,7 @@ int main()
                 cout << dora;
                 cout << " Han\n";
             }
-            if (dora > 10)
+            else
             {
                 cout << dora;
                 cout << " Dora:                          ";
@@ -1958,7 +1958,7 @@ int main()
                 cout << "4000 All\n";
 
             }
-            if (!dealer)
+            else
             {
                 cout << "2000/4000\n";
             }
@@ -1986,22 +1986,22 @@ int main()
                 cout << "Mangan\n";
             }
 
-            if (basicPoints == 3000)
+            else if (basicPoints == 3000)
             {
                 cout << "Haneman\n";
             }
 
-            if (basicPoints == 4000)
+            else if (basicPoints == 4000)
             {
                 cout << "Baiman\n";
             }
 
-            if (basicPoints == 6000)
+            else if (basicPoints == 6000)
             {
                 cout << "Sanbaiman\n";
             }
 
-            if (basicPoints == 8000)
+            else if (basicPoints == 8000)
             {
                 cout << "Yakuman\n";
             }
@@ -2038,7 +2038,7 @@ int main()
                 }
             }
 
-            if (!dealer)
+            else
             {
                 if (tsumo)
                 {
@@ -2061,7 +2061,7 @@ int main()
         cout << "Total Points Earned: ";
         cout << totalPoints + (300 * bonusRoundNumber) + (1000 * riichibon) << "\n";
     }
-    if (chombo)
+    else
     {
         cout << "No Points Earned\n";
     }
